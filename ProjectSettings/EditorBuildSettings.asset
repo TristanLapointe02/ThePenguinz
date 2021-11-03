@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CocoIce.unity
+    guid: 4e7919ca6905f5c41aabcdae689e1316
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: dfa3be96e3b040b469fd060f08a369de, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2ebc29ec099c6dc44993f64b4f952f59, type: 2}
