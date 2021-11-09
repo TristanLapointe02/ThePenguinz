@@ -48,8 +48,9 @@ public class GestionConnexion : MonoBehaviourPunCallbacks
 		//print("joueurs connectés = " + PhotonNetwork.CountOfPlayers );
         if(PhotonNetwork.CountOfPlayers == 2){
             //Ici on metterait une variable à true pour lancer le jeu
+            Invoke("SpawnPrefab", 0.1f);
         }
-        Invoke("SpawnPrefab", 0.1f);
+        
 	}
     public void SpawnPrefab(){
         PhotonNetwork.Instantiate("AvatarSinge_Prefab",new Vector3(Random.Range(0f, 1f),0f,Random.Range(0f, 1f)),Quaternion.identity, 0,null );
