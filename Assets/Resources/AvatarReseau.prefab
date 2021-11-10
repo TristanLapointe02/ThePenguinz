@@ -858,7 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generalVRPlayerTransform: {fileID: 5353914701675185781}
-  mainAvatarTransform: {fileID: 7571858373390553083}
+  mainAvatarTransform: {fileID: 7571858373419662663}
   headTransform: {fileID: 217145083179646909}
   bodyTransform: {fileID: 4843745423087669478}
   leftHandTransform: {fileID: 7571858372523554820}

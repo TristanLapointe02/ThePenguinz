@@ -49,7 +49,7 @@ public class GestionConnexion : MonoBehaviourPunCallbacks
         if(PhotonNetwork.CountOfPlayers == 2){
             //Ici on metterait une variable à true pour lancer le jeu 
         }
-        PhotonNetwork.Instantiate("AvatarReseau",new Vector3(Random.Range(0f, 1f),0f,Random.Range(0f, 1f)),Quaternion.identity, 0,null );
+        PhotonNetwork.Instantiate("AvatarReseau",new Vector3(Random.Range(-5f, 5f),0f,Random.Range(-5f, 5f)),Quaternion.identity, 0,null );
 
     }
 
