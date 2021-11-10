@@ -533,8 +533,8 @@ MonoBehaviour:
   AvatarMainGauche: {fileID: 2256347467135830800}
   AvatarMainDroite: {fileID: 5928848922333970961}
   XRTete: {fileID: 7571858372819171481}
-  XRLeftHand: {fileID: 7571858372523554820}
-  XRRightHand: {fileID: 7571858374411168108}
+  XRLeftHand: {fileID: 7571858373081058676}
+  XRRightHand: {fileID: 7571858373999798073}
   tetePositionOffset: {x: 0, y: -1.6, z: 0}
 --- !u!1 &7571858373999798022
 GameObject:
@@ -865,8 +865,8 @@ MonoBehaviour:
   mainAvatarTransform: {fileID: 7970839657560678474}
   headTransform: {fileID: 217145083179646909}
   bodyTransform: {fileID: 4843745423087669478}
-  leftHandTransform: {fileID: 7571858372523554820}
-  rightHandTransform: {fileID: 7571858374411168108}
+  leftHandTransform: {fileID: 2256347467135830800}
+  rightHandTransform: {fileID: 5928848922333970961}
 --- !u!114 &8614133120285200887
 MonoBehaviour:
   m_ObjectHideFlags: 0
