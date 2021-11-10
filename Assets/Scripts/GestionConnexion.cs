@@ -50,10 +50,8 @@ public class GestionConnexion : MonoBehaviourPunCallbacks
             //Ici on metterait une variable à true pour lancer le jeu 
         }
         Invoke("SpawnPrefab", 0.1f);
+        PhotonNetwork.Instantiate("AvatarReseau",new Vector3(Random.Range(0f, 1f),0f,Random.Range(0f, 1f)),Quaternion.identity, 0,null );
 
-    }
-    public void SpawnPrefab(){
-        PhotonNetwork.Instantiate("AvatarSinge_Prefab",new Vector3(Random.Range(0f, 1f),0f,Random.Range(0f, 1f)),Quaternion.identity, 0,null );
     }
 
     
