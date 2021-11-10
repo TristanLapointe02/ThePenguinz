@@ -797,6 +797,7 @@ GameObject:
   - component: {fileID: 5353914701675185781}
   - component: {fileID: 1559752585562469365}
   - component: {fileID: 7828551511874923161}
+  - component: {fileID: 8614133120285200887}
   m_Layer: 0
   m_Name: AvatarReseau
   m_TagString: Untagged
@@ -857,11 +858,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generalVRPlayerTransform: {fileID: 5353914701675185781}
-  mainAvatarTransform: {fileID: 0}
+  mainAvatarTransform: {fileID: 7571858373390553083}
   headTransform: {fileID: 217145083179646909}
   bodyTransform: {fileID: 4843745423087669478}
   leftHandTransform: {fileID: 7571858372523554820}
   rightHandTransform: {fileID: 7571858374411168108}
+--- !u!114 &8614133120285200887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400555713797728574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23650297652f8204194c6a3a48f92d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XRRig: {fileID: 7571858373419662658}
+  Avatar: {fileID: 7337996307710114544}
 --- !u!1001 &7571858372523404484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1050,6 +1065,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8acbf1d5db6ffd4b83a547167270e4b, type: 3}
+--- !u!1 &7337996307710114544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c8acbf1d5db6ffd4b83a547167270e4b, type: 3}
+  m_PrefabInstance: {fileID: 7571858372664575905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7970839657560678474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c8acbf1d5db6ffd4b83a547167270e4b, type: 3}
