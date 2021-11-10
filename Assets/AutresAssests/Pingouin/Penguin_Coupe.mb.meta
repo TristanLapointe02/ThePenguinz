@@ -7,8 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BecOrange
+    second: {fileID: 2100000, guid: 060c74d66024a1b468e02475ed80a0d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Gray
     second: {fileID: 2100000, guid: 5e32fecba098cd347b989c431dcc2be5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PenguinFourrure
+    second: {fileID: 2100000, guid: 4bc8075b9d0f404498761c765624fdbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 560d1ed91eeaa0c4a996e8833965522b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
