@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Coconut
   - Banane
+  - Bullet
+  - Ennemi
   layers:
   - Default
   - TransparentFX
