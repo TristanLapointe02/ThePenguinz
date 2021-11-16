@@ -55,13 +55,20 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collision)
     {
         //Si un joueur touche une potion
         if (collision.gameObject.name == "Sword")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 10f;
+            vieEnnemi -= 25f;
+        }
+
+        //Si un joueur touche une potion
+        if (collision.gameObject.tag == "Balle")
+        {
+            //Diminuer la vie de l'ennemi
+            vieEnnemi -= 45f;
         }
     }
 }

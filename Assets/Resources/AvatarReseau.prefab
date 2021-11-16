@@ -1340,6 +1340,7 @@ GameObject:
   - component: {fileID: 1559752585562469365}
   - component: {fileID: 7828551511874923161}
   - component: {fileID: 8614133120285200887}
+  - component: {fileID: 297456307012161546}
   m_Layer: 0
   m_Name: AvatarReseau
   m_TagString: Player
@@ -1418,6 +1419,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   XRRig: {fileID: 7571858373419662658}
   Avatar: {fileID: 2679037912654543135}
+--- !u!114 &297456307012161546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400555713797728574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e574aa25374d4140ac161d42693ba10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  peutTirer: 1
+  balle: {fileID: 7533525693964150468, guid: cb342545ded3b7843ba985936b283c7e, type: 3}
+  boutFusil: {fileID: 0}
 --- !u!1001 &2748055584790024768
 PrefabInstance:
   m_ObjectHideFlags: 0
