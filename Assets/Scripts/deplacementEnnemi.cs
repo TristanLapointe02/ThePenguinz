@@ -10,6 +10,8 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     NavMeshAgent navAgent; //Raccourci pour la navmesh agent
     public GameObject[] joueurs; //Tableau contenant les joueurs
     public GameObject joueurAleatoire; //Joueur qui sera choisi aléatoirement au début
+    public float vieEnnemi = 100f; //Vie de l'ennemi
+    public bool mort; //Variable détectant la mort de l'ennemi
 
     void Start()
     {
@@ -20,12 +22,46 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         joueurs = GameObject.FindGameObjectsWithTag("Player");
 
         //Trouver un joueur aléaoire
-        joueurAleatoire = joueurs[Random.Range(0, joueurs.Length)]; 
+        joueurAleatoire = joueurs[Random.Range(0, joueurs.Length)];
     }
 
     void Update()
     {
         //Dire à l'agent de se diriger vers le joueur choisi
         navAgent.SetDestination(joueurAleatoire.transform.position);
+
+        //MORT DU ENNEMI
+        if (vieEnnemi <= 0)
+        {
+            //Signaler qu'il est mort
+            mort = true;
+            print("je suis mort lol");
+            //Activer l'animation de mort
+            //GetComponent<Animator>().SetBool("Mort", true);
+            //Appeler la fonction qui joue le son de mort en RPC pour tous
+            //photonView.RPC("JoueSonMort", RpcTarget.All);
+            //Détruire l'ennemi sur réseau
+            PhotonNetwork.Destroy(gameObject);
+        }
+
+        //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
+        if (vieEnnemi >= 100f)
+        {
+            vieEnnemi = 100f;
+        }
+        else if (vieEnnemi <= 0)
+        {
+            vieEnnemi = 0f;
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        //Si un joueur touche une potion
+        if (collision.gameObject.name == "Sword")
+        {
+            //Diminuer la vie de l'ennemi
+            vieEnnemi -= 10f;
+        }
     }
 }
