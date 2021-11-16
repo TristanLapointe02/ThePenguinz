@@ -6,9 +6,9 @@ using Photon.Pun;
 
 public class tirBalle : MonoBehaviourPunCallbacks
 {
-    public bool peutTirer = true; //Vérifie si le joueur peut tirer
-    public GameObject balle; //La balle qui est instanciée au tir
-    public GameObject boutFusil; //Détermine où est le bout du fusil (où la balle devrait spawn)
+    public bool peutTirer = true; //Vï¿½rifie si le joueur peut tirer
+    public GameObject balle; //La balle qui est instanciï¿½e au tir
+    public GameObject boutFusil; //Dï¿½termine oï¿½ est le bout du fusil (oï¿½ la balle devrait spawn)
 
     private void Start()
     {
@@ -23,10 +23,10 @@ public class tirBalle : MonoBehaviourPunCallbacks
             if (Input.GetKeyDown(KeyCode.Mouse0) && peutTirer == true)
             {
                 //Instancier la balle
-                GameObject nouvelleBalle = PhotonNetwork.Instantiate(balle.name, boutFusil.transform.position, transform.rotation, 0, null);
+                GameObject nouvelleBalle = PhotonNetwork.Instantiate(balle.name, boutFusil.transform.position, boutFusil.transform.rotation, 0, null);
 
-                //Lui appliquer une vélocité pour la projeter vers l'avant
-                nouvelleBalle.GetComponent<Rigidbody>().velocity = transform.forward * 10;
+                //Lui appliquer une vï¿½locitï¿½ pour la projeter vers l'avant
+                nouvelleBalle.GetComponent<Rigidbody>().velocity = boutFusil.transform.forward * 40;
             }
         }
     }
