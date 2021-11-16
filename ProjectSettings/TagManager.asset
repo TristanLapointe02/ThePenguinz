@@ -8,6 +8,8 @@ TagManager:
   - Banane
   - Bullet
   - Ennemi
+  - Gun
+  - Balle
   layers:
   - Default
   - TransparentFX
