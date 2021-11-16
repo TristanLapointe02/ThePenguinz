@@ -10,6 +10,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 
+
 public class GestionAvatarReseau : MonoBehaviourPunCallbacks
 {
     public GameObject XRRig;
@@ -22,7 +23,7 @@ public class GestionAvatarReseau : MonoBehaviourPunCallbacks
             Avatar.SetActive(false);    //le model Avatar n'est pas visible pour le joueur local 
             //correction de bug de téléportation, XRRig n'est pas dans la scène de début
             //alors il faut l'identifier aux objets "Teleportation Area" par script
-         //TeleportationArea[] teleportPlacher = GameObject.FindObjectsOfType<TeleportationArea>();
+            //TeleportationArea[] teleportPlacher = GameObject.FindObjectsOfType<TeleportationArea>();
             //foreach (var plancher in teleportPlacher)
             //{
                 //plancher.teleportationProvider = XRRig.GetComponent<TeleportationProvider>();
