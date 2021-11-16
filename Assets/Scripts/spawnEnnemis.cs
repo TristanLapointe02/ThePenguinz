@@ -8,13 +8,13 @@ public class spawnEnnemis : MonoBehaviourPunCallbacks
 {
     public GameObject[] ennemisFaibles; //Tableau des ennemis
     public GameObject boss; //Boss du niveau
-    public Vector3[] positions; //Tableau des positions aléatoires où les ennemis peuvent spawn
-    public float tempsSpawn; //Intervalle de temps à laquelle les ennemis vont spawn
-    public bool peutSpawn = true; //Vérifie si les ennemis peuvent spawn
+    public Vector3[] positions; //Tableau des positions alï¿½atoires oï¿½ les ennemis peuvent spawn
+    public float tempsSpawn; //Intervalle de temps ï¿½ laquelle les ennemis vont spawn
+    public bool peutSpawn = true; //Vï¿½rifie si les ennemis peuvent spawn
     
     void Start()
     {
-        //Ennemis faibles = Un nouveau à chaque deux secondes
+        //Ennemis faibles = Un nouveau ï¿½ chaque deux secondes
         InvokeRepeating("CreationEnnemi", 1f, tempsSpawn);
         Invoke("CreationBoss", 2f);
     }
@@ -28,17 +28,22 @@ public class spawnEnnemis : MonoBehaviourPunCallbacks
     {
         if (peutSpawn)
         {
-            //Défénir une position aléatoire
+            //Dï¿½fï¿½nir une position alï¿½atoire
             Vector3 positionAleatoire = positions[Random.Range(0, positions.Length)];
 
-            //Générer cet ennemi sur réseau
-            GameObject nouvelEnnemi = PhotonNetwork.InstantiateRoomObject("Ennemi", positionAleatoire, Quaternion.identity, 0, null);
+            //Gï¿½nï¿½rer cet ennemi sur rï¿½seau
+             if(PhotonNetwork.IsMasterClient == true){
+                 GameObject nouvelEnnemi = PhotonNetwork.InstantiateRoomObject("Ennemi", positionAleatoire, Quaternion.identity, 0, null);
+             }
+            
         }
     }
 
     public void CreationBoss()
     {
         Vector3 positionAleatoire = positions[Random.Range(0, positions.Length)];
-        GameObject nouvelEnnemi = PhotonNetwork.InstantiateRoomObject("Boss", positionAleatoire, Quaternion.identity, 0, null);
+        if(PhotonNetwork.IsMasterClient == true){
+            GameObject nouvelEnnemi = PhotonNetwork.InstantiateRoomObject("Boss", positionAleatoire, Quaternion.identity, 0, null);
+        }
     }
 }
