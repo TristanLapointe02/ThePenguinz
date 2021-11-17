@@ -43,7 +43,7 @@ public class ControleAvatar : MonoBehaviour
         AvatarMainDroite.position = Vector3.Lerp(AvatarMainDroite.position, XRRightHand.position, 0.5f);
         AvatarMainGauche.position = Vector3.Lerp(AvatarMainGauche.position, XRLeftHand.position, 0.5f);
         //Rotation des mains
-        AvatarMainDroite.rotation = Quaternion.Lerp(AvatarMainDroite.rotation, Quaternion.Euler(new Vector3(XRRightHand.rotation.eulerAngles.x , XRRightHand.rotation.eulerAngles.y, XRRightHand.rotation.eulerAngles.z +90f)), 0.5f);
-        AvatarMainGauche.rotation = Quaternion.Lerp(AvatarMainGauche.rotation, Quaternion.Euler(new Vector3(XRLeftHand.rotation.eulerAngles.x , XRLeftHand.rotation.eulerAngles.y, XRLeftHand.rotation.eulerAngles.z + 90f)), 0.5f);
+        AvatarMainDroite.rotation = Quaternion.Lerp(AvatarMainDroite.rotation, Quaternion.Euler(new Vector3(XRRightHand.rotation.eulerAngles.x , XRRightHand.rotation.eulerAngles.y, XRRightHand.rotation.eulerAngles.z + 270f)), 0.5f);
+        AvatarMainGauche.rotation = Quaternion.Lerp(AvatarMainGauche.rotation, Quaternion.Euler(new Vector3(XRLeftHand.rotation.eulerAngles.x , XRLeftHand.rotation.eulerAngles.y, XRLeftHand.rotation.eulerAngles.z + 270f)), 0.5f);
     }
 }
