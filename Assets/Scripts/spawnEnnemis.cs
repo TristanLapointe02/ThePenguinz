@@ -15,8 +15,8 @@ public class spawnEnnemis : MonoBehaviourPunCallbacks
     void Start()
     {
         //Ennemis faibles = Un nouveau � chaque deux secondes
-        InvokeRepeating("CreationEnnemi", 1f, tempsSpawn);
-        Invoke("CreationBoss", 2f);
+        InvokeRepeating("CreationEnnemi", 10f, tempsSpawn);
+        Invoke("CreationBoss", 200f);
     }
 
     void Update()
