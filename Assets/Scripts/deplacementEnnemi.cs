@@ -41,7 +41,10 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Appeler la fonction qui joue le son de mort en RPC pour tous
             //photonView.RPC("JoueSonMort", RpcTarget.All);
             //Détruire l'ennemi sur réseau
-            PhotonNetwork.Destroy(gameObject);
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
 
         //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
@@ -55,7 +58,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnTriggerEnter(Collider collision)
+    public void OnCollisionEnter(Collision collision)
     {
         //Si un joueur touche une potion
         if (collision.gameObject.name == "Sword")
