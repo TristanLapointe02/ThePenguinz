@@ -43,7 +43,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //photonView.RPC("JoueSonMort", RpcTarget.All);
 
             //Détruire l'ennemi sur réseau
-            photonView.RPC("MortEnnemi", RpcTarget.MasterClient, gameObject.GetComponent<PhotonView>().ViewID);
+            int pvID = gameObject.GetComponent<PhotonView>().ViewID;
+
+            photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID);
         }
 
         //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
