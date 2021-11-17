@@ -63,9 +63,7 @@ public class tirBalle : MonoBehaviourPunCallbacks
                 GameObject nouvelleBalle = PhotonNetwork.Instantiate(balle.name, boutFusil.transform.position, boutFusil.transform.rotation, 0, null);
                 //Lui appliquer une v�locit� pour la projeter vers l'avant
                 nouvelleBalle.GetComponent<Rigidbody>().velocity = boutFusil.transform.forward * 40;
-                print("TEST");
             }
-            
         }
     }
 }

@@ -35,16 +35,15 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         {
             //Signaler qu'il est mort
             mort = true;
-            print("je suis mort lol");
+
             //Activer l'animation de mort
             //GetComponent<Animator>().SetBool("Mort", true);
+
             //Appeler la fonction qui joue le son de mort en RPC pour tous
             //photonView.RPC("JoueSonMort", RpcTarget.All);
+
             //Détruire l'ennemi sur réseau
-            if (PhotonNetwork.IsMasterClient == true)
-            {
-                PhotonNetwork.Destroy(gameObject);
-            }
+            photonView.RPC("MortEnnemi", RpcTarget.MasterClient, gameObject.GetComponent<PhotonView>().ViewID);
         }
 
         //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
@@ -73,5 +72,12 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 45f;
         }
+    }
+
+    //Fonction qui détruit l'ennemi
+    [PunRPC]
+    public void MortEnnemi(int pvID)
+    {
+        PhotonNetwork.Destroy(PhotonView.Find(pvID));
     }
 }
