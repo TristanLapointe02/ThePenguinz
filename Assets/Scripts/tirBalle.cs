@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.XR.Interaction.Toolkit; // accès aux objets du XR Interaction Toolkit
 using UnityEngine.InputSystem; // pour utiliser le nouveau InputSyteme
 using UnityEngine.Events;
@@ -41,11 +39,11 @@ public class tirBalle : MonoBehaviourPunCallbacks
         }
     }
 
-    private void OnEnable(){
+    public override void OnEnable(){
         inputActionReference_ActiveTrigger.action.performed += ActiveTrigger;
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         // s'exécute lorsque le script devient inactif (disable)
         // retire la fonction qui sera appelée lorsque l'action sera effectuée
