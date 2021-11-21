@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class ProprietaireArme : MonoBehaviour
+public class ProprietaireArme : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnCollisionEnter(Collision collision)
     {
-        
-    }
+        //Si l'arme touche un joueur
+        if (collision.gameObject.tag == "Player")
+        {
+            //Transférer le ownership au joueur local qui l'a touché
+            photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
     }
 }

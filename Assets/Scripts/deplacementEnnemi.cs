@@ -10,11 +10,23 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     NavMeshAgent navAgent; //Raccourci pour la navmesh agent
     public GameObject[] joueurs; //Tableau contenant les joueurs
     public GameObject joueurAleatoire; //Joueur qui sera choisi aléatoirement au début
-    public float vieEnnemi = 100f; //Vie de l'ennemi
+    public float vieEnnemi; //Vie de l'ennemi
     public bool mort; //Variable détectant la mort de l'ennemi
+    public static int compteurMort = 0; //Compteur de mort
 
     void Start()
     {
+        //Défénir la vie de l'ennemi et du boss
+        if(gameObject.name == "Ennemi")
+        {
+            vieEnnemi = 100f;
+        }
+
+        else if (gameObject.name == "Boss")
+        {
+            vieEnnemi = 300f;
+        }
+
         //Aller chercher le raccourci pour navmesh agent
         navAgent = GetComponent<NavMeshAgent>();
 
@@ -37,7 +49,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             mort = true;
 
             //Activer l'animation de mort
-            //GetComponent<Animator>().SetBool("Mort", true);
+            GetComponent<Animator>().SetBool("Mort", true);
 
             //Appeler la fonction qui joue le son de mort en RPC pour tous
             //photonView.RPC("JoueSonMort", RpcTarget.All);
@@ -45,7 +57,23 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Détruire l'ennemi sur réseau
             int pvID = gameObject.GetComponent<PhotonView>().ViewID;
 
-            photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID);
+            photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID, 3);
+
+            //Arrêter l'ennemi pour pas qu'il poursuit son chemin
+            GetComponent<NavMeshAgent>().enabled = false;
+
+            //Enlever le collider
+            GetComponent<Collider>().enabled = false;
+
+            //Si c'était le boss
+            if (gameObject.name == "Boss")
+            {
+                //Faire spawn la boule à neige sur réseau
+                if (PhotonNetwork.IsMasterClient == true)
+                {
+                    PhotonNetwork.InstantiateRoomObject("Boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
+                }
+            }
         }
 
         //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
@@ -78,8 +106,15 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
     //Fonction qui détruit l'ennemi
     [PunRPC]
-    public void MortEnnemi(int pvID)
+    IEnumerator MortEnnemi(int pvID, int delai)
     {
+        //Après un petit délai
+        yield return new WaitForSeconds(delai);
+
+        //Détruire l'ennemi sur réseau
         PhotonNetwork.Destroy(PhotonView.Find(pvID));
+
+        //Augmenter le compteur de mort
+        compteurMort += 1;
     }
 }
