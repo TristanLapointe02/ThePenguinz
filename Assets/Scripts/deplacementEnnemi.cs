@@ -71,7 +71,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
                 //Faire spawn la boule à neige sur réseau
                 if (PhotonNetwork.IsMasterClient == true)
                 {
-                    PhotonNetwork.InstantiateRoomObject("Boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
+                    PhotonNetwork.InstantiateRoomObject("boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
                 }
             }
         }
