@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6939066801844487478}
   - component: {fileID: 1621359358210421134}
   m_Layer: 8
-  m_Name: boule
+  m_Name: Boule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

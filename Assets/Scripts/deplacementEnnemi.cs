@@ -9,22 +9,23 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 {
     NavMeshAgent navAgent; //Raccourci pour la navmesh agent
     public GameObject[] joueurs; //Tableau contenant les joueurs
-    public GameObject joueurAleatoire; //Joueur qui sera choisi aléatoirement au début
+    public GameObject joueurAleatoire; //Joueur qui sera choisi alï¿½atoirement au dï¿½but
     public float vieEnnemi; //Vie de l'ennemi
-    public bool mort; //Variable détectant la mort de l'ennemi
+    public bool mort; //Variable dï¿½tectant la mort de l'ennemi
     public static int compteurMort = 0; //Compteur de mort
+    bool enVie = true;
 
     void Start()
     {
-        //Défénir la vie de l'ennemi et du boss
-        if(gameObject.name == "Ennemi")
+        //Dï¿½fï¿½nir la vie de l'ennemi et du boss
+        if(gameObject.name == "Ennemi(Clone)")
         {
             vieEnnemi = 100f;
         }
 
-        else if (gameObject.name == "Boss")
+        else if (gameObject.name == "Boss(Clone)")
         {
-            vieEnnemi = 300f;
+            vieEnnemi = 100f;
         }
 
         //Aller chercher le raccourci pour navmesh agent
@@ -33,17 +34,20 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         //Stocker tous les joueurs dans le tableau
         joueurs = GameObject.FindGameObjectsWithTag("Player");
 
-        //Trouver un joueur aléaoire
+        //Trouver un joueur alï¿½aoire
         joueurAleatoire = joueurs[Random.Range(0, joueurs.Length)];
     }
 
     void Update()
     {
-        //Dire à l'agent de se diriger vers le joueur choisi
-        navAgent.SetDestination(joueurAleatoire.transform.position);
+        //Dire ï¿½ l'agent de se diriger vers le joueur choisi
+        if(enVie){
+            navAgent.SetDestination(joueurAleatoire.transform.position);
+        }
+        
 
         //MORT DU ENNEMI
-        if (vieEnnemi <= 0)
+        if (vieEnnemi <= 0 && enVie)
         {
             //Signaler qu'il est mort
             mort = true;
@@ -54,26 +58,28 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Appeler la fonction qui joue le son de mort en RPC pour tous
             //photonView.RPC("JoueSonMort", RpcTarget.All);
 
-            //Détruire l'ennemi sur réseau
+            //Dï¿½truire l'ennemi sur rï¿½seau
             int pvID = gameObject.GetComponent<PhotonView>().ViewID;
 
             photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID, 3);
 
-            //Arrêter l'ennemi pour pas qu'il poursuit son chemin
+            //Arrï¿½ter l'ennemi pour pas qu'il poursuit son chemin
             GetComponent<NavMeshAgent>().enabled = false;
 
             //Enlever le collider
             GetComponent<Collider>().enabled = false;
 
-            //Si c'était le boss
-            if (gameObject.name == "Boss")
+            //Si c'ï¿½tait le boss
+            if (gameObject.name == "Boss(Clone)")
             {
-                //Faire spawn la boule à neige sur réseau
+                //Faire spawn la boule ï¿½ neige sur rï¿½seau
                 if (PhotonNetwork.IsMasterClient == true)
                 {
                     PhotonNetwork.InstantiateRoomObject("boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
                 }
             }
+            enVie = false;
+            
         }
 
         //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
@@ -90,10 +96,10 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public void OnTriggerEnter(Collider collision)
     {
         //Si un joueur touche une potion
-        if (collision.gameObject.name == "Sword")
+        if (collision.gameObject.name == "Sword(Clone)")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 25f;
+            vieEnnemi -= 100f;
         }
 
         //Si un joueur touche une potion
@@ -104,14 +110,14 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
     }
 
-    //Fonction qui détruit l'ennemi
+    //Fonction qui dï¿½truit l'ennemi
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {
-        //Après un petit délai
+        //Aprï¿½s un petit dï¿½lai
         yield return new WaitForSeconds(delai);
 
-        //Détruire l'ennemi sur réseau
+        //Dï¿½truire l'ennemi sur rï¿½seau
         PhotonNetwork.Destroy(PhotonView.Find(pvID));
 
         //Augmenter le compteur de mort
