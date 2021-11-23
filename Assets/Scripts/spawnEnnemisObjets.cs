@@ -22,7 +22,7 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
         InvokeRepeating("CreationEnnemi", 0f, tempsSpawnEnnemis);
 
         //Appel des armes
-        Invoke("CreationArmes", 20f);
+        Invoke("CreationArmes", 2f);
     }
 
     void Update()
@@ -70,20 +70,20 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
     //Fonction qui crée les armes au début
     public void CreationArmes()
     {
-        //Instancier les armes à des positions au hasard
-        for (int i = 0; i < positionsArmes.Length; i++)
+        //Si c'est le Master Client  
+        if (PhotonNetwork.IsMasterClient == true)
         {
+            //Instancier les armes à des positions au hasard
+            for (int i = 0; i < positionsArmes.Length; i++) {
             //Piger un nombre aléatoire pour savoir quelle arme instancier
             int armeAleatoire = Random.Range(0, armes.Length);
 
             //Définir la position suivante
             Vector3 positionSuivante = positionsArmes[i].transform.position;
 
-            //Si c'est le Master Client  
-            if (PhotonNetwork.IsMasterClient == true)
-            {
-                //Fait apparaître une arme aléatoire en suivant le tableau des positions sur réseau
-                PhotonNetwork.InstantiateRoomObject(armes[armeAleatoire].gameObject.name, positionSuivante, Quaternion.identity, 1, null);
+            //Fait apparaître une arme aléatoire en suivant le tableau des positions sur réseau
+            PhotonNetwork.InstantiateRoomObject(armes[armeAleatoire].gameObject.name, positionSuivante, Quaternion.identity, 0, null);
+
             }
         }
     }
