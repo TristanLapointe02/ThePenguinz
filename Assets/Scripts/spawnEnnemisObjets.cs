@@ -22,7 +22,7 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
         InvokeRepeating("CreationEnnemi", 0f, tempsSpawnEnnemis);
 
         //Appel des armes
-        Invoke("CreationArmes", 2f);
+        Invoke("CreationArmes", 20f);
     }
 
     void Update()
