@@ -11,8 +11,6 @@ public class ProprietaireArme : MonoBehaviourPunCallbacks
         //Si l'arme touche un joueur
         if (collision.gameObject.tag == "Player")
         {
-            //Print
-            print("playerrr heyhey");
             //Transférer le ownership au joueur local qui l'a touché
             photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
 

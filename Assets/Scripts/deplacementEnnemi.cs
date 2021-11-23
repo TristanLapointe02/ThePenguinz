@@ -13,7 +13,8 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public float vieEnnemi; //Vie de l'ennemi
     public bool mort; //Variable d�tectant la mort de l'ennemi
     public static int compteurMort = 0; //Compteur de mort
-    bool enVie = true;
+    bool enVie = true; //Déterminer si l'ennemi est en vie
+
 
     void Start()
     {
@@ -67,7 +68,10 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             GetComponent<NavMeshAgent>().enabled = false;
 
             //Enlever le collider
-            GetComponent<Collider>().enabled = false;
+            //GetComponent<Collider>().enabled = false;
+
+            //Freeze le rigidbody
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
             //Si c'�tait le boss
             if (gameObject.name == "Boss(Clone)")
@@ -95,18 +99,27 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
     public void OnTriggerEnter(Collider collision)
     {
-        //Si un joueur touche une potion
+        //Si l'ennemi touche une épée
         if (collision.gameObject.name == "Sword(Clone)")
         {
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 100f;
         }
 
-        //Si un joueur touche une potion
+        //Si l'ennemi se fait toucher par une balle
         if (collision.gameObject.tag == "Balle")
         {
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 50f;
+        }
+
+        //Si l'ennemi se fait exploser fatalement
+        if (collision.gameObject.name == "collisionGrenade")
+        {
+            //Diminuer la vie de l'ennemi
+            vieEnnemi -= 300f;
+            //GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
+            
         }
     }
 
