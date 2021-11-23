@@ -19,12 +19,12 @@ public class ProprietaireArme : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnTriggerExit(Collider collision)
+    /*public void OnTriggerExit(Collider collision)
     {   
         //Print
         print("im out zooop");
         //Transférer le ownership au joueur local qui l'a touché
         photonView.TransferOwnership(PhotonNetwork.MasterClient);
 
-    }
+    }*/
 }
