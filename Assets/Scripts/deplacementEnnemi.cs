@@ -43,7 +43,6 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         //Dire � l'agent de se diriger vers le joueur choisi
         if(enVie){
             navAgent.SetDestination(joueurAleatoire.transform.position);
-            print(joueurAleatoire.transform.position);
         }
         
 

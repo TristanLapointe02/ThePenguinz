@@ -86,6 +86,5 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
                 PhotonNetwork.InstantiateRoomObject(armes[armeAleatoire].gameObject.name, positionSuivante, Quaternion.identity, 1, null);
             }
         }
-
     }
 }
