@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 7251067321561768693}
   - component: {fileID: 1498581317317159606}
   - component: {fileID: -7121084737868862851}
+  - component: {fileID: -2788928536742484366}
   m_Layer: 6
   m_Name: Grenade
   m_TagString: Untagged
@@ -381,12 +382,12 @@ MonoBehaviour:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
+    InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
+    InterpolateLerpSpeed: 5
+    ExtrapolateOption: 2
     ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateIncludingRoundTripTime: 0
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
     SynchronizeEnabled: 1
@@ -414,6 +415,18 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &-2788928536742484366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497896415354042121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a317d25bb7d1cf84fa56893c1f09692c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1498281963357449257
 GameObject:
   m_ObjectHideFlags: 0
