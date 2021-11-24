@@ -127,14 +127,17 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {
-        //Apr�s un petit d�lai
-        yield return new WaitForSeconds(delai);
+        if (enVie)
+        {
+            //Apr�s un petit d�lai
+            yield return new WaitForSeconds(delai);
 
-        //D�truire l'ennemi sur r�seau
-        PhotonNetwork.Destroy(PhotonView.Find(pvID));
+            //D�truire l'ennemi sur r�seau
+            PhotonNetwork.Destroy(PhotonView.Find(pvID));
 
-        //Augmenter le compteur de mort
-        compteurMort += 1;
+            //Augmenter le compteur de mort
+            compteurMort += 1;
+        } 
     }
 
     [PunRPC]
