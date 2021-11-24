@@ -48,7 +48,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         
 
         //MORT DU ENNEMI
-        if (vieEnnemi <= 0 && enVie)
+        if (vieEnnemi <= 0 && enVie && photonView.IsMine)
         {
             //Signaler qu'il est mort
             mort = true;
