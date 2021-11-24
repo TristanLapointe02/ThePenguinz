@@ -17,8 +17,15 @@ public class GestionAvatarReseau : MonoBehaviourPunCallbacks
 {
     public GameObject XRRig;
     public GameObject Avatar;
+    //Différents sons des pengouins
+    public AudioClip pengouin1;
+    public AudioClip pengouin2;
+    public AudioClip pengouin3;
+
     void Start()
     {
+        Invoke("JouerSonPengouin", 6f);
+
         if (photonView.IsMine)
         {
             XRRig.SetActive(true);      //XRRig controle l'avatar local
@@ -35,6 +42,27 @@ public class GestionAvatarReseau : MonoBehaviourPunCallbacks
         {
             XRRig.SetActive(false);
         }
+    }
+
+    void JouerSonPengouin(){
+        //Variable pour déclarer après combien de temps on re-invoke la fonction
+        float randomTemps = Random.Range(6, 18);
+        //Choisir le son aléatoire qui doit jouer
+        float son = Random.Range(1, 3);
+        //Premier son...
+        if(son == 1){
+            GetComponent<AudioSource>().PlayOneShot(pengouin1, 1f);
+        }
+        //Deuxième son...
+        else if(son == 2){
+            GetComponent<AudioSource>().PlayOneShot(pengouin2, 1f);
+        }
+        //Troisième son...
+        else{
+            GetComponent<AudioSource>().PlayOneShot(pengouin3, 1f);
+        }
+        //Réinvoker la fonction
+        Invoke("JouerSonPengouin", randomTemps);
     }
 }
 
