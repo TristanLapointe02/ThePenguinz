@@ -51,18 +51,34 @@ public class GestionAvatarReseau : MonoBehaviourPunCallbacks
         float son = Random.Range(1, 3);
         //Premier son...
         if(son == 1){
-            GetComponent<AudioSource>().PlayOneShot(pengouin1, 1f);
+            photonView.RPC("JouerSonPengouin1", RpcTarget.All);
         }
         //Deuxième son...
         else if(son == 2){
-            GetComponent<AudioSource>().PlayOneShot(pengouin2, 1f);
+            photonView.RPC("JouerSonPengouin2", RpcTarget.All);
         }
         //Troisième son...
         else{
-            GetComponent<AudioSource>().PlayOneShot(pengouin3, 1f);
+            photonView.RPC("JouerSonPengouin3", RpcTarget.All);
         }
         //Réinvoker la fonction
         Invoke("JouerSonPengouin", randomTemps);
     }
+    [PunRPC]
+    void JouerSonPengouin1()
+    {
+        GetComponent<AudioSource>().PlayOneShot(pengouin1, 1f);
+    }
+    [PunRPC]
+    void JouerSonPengouin2()
+    {
+        GetComponent<AudioSource>().PlayOneShot(pengouin2, 1f);
+    }
+    [PunRPC]
+    void JouerSonPengouin3()
+    {
+        GetComponent<AudioSource>().PlayOneShot(pengouin3, 1f);
+    }
 }
+
 
