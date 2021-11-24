@@ -15,6 +15,8 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public static int compteurMort = 0; //Compteur de mort
     bool enVie = true; //Déterminer si l'ennemi est en vie
     public AudioClip sonEpee; //Son de l'épée
+    public bool frappeEpee; //Booléenne pour empêcher la son de l'épée qui joue en boucle
+    public AudioClip sonBalle; //Son de la balle qui touche l'ennemi
 
     void Start()
     {
@@ -62,10 +64,14 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Appeler la fonction qui joue le son de mort en RPC pour tous
             //photonView.RPC("JoueSonMort", RpcTarget.All);
 
-            //D�truire l'ennemi sur r�seau
-            int pvID = gameObject.GetComponent<PhotonView>().ViewID;
 
-            photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID, 3);
+            //D�truire l'ennemi sur r�seau
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int pvID = gameObject.GetComponent<PhotonView>().ViewID;
+
+                photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID, 3);
+            }
 
             //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
             GetComponent<NavMeshAgent>().enabled = false;
@@ -103,8 +109,16 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 100f;
 
-            //Appeler la fonction pour le son de l'épée qui touche l'ennemi
-            photonView.RPC("JoueSonEpee", RpcTarget.All);
+            if (frappeEpee == false){
+                //Appeler la fonction pour le son de l'épée qui touche l'ennemi
+                photonView.RPC("JoueSonEpee", RpcTarget.All);
+
+                //Remettre la variable à true après un petit délai
+                Invoke("ActiverSonEpee", 0.35f);
+
+                //Mettre la frappe à true
+                frappeEpee = true;
+            }
         }
 
         //Si l'ennemi se fait toucher par une balle
@@ -112,6 +126,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         {
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 50f;
+
+            //Appeler la fonction pour le son de la balle qui touche l'ennemi
+            photonView.RPC("JoueSonBalle", RpcTarget.All);
         }
 
         //Si l'ennemi se fait exploser fatalement
@@ -122,11 +139,17 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
     }
 
+    //Fonction qui permet de rappeler le son de l'épée
+    public void ActiverSonEpee()
+    {
+        frappeEpee = false;
+    }
+
     //Fonction qui détruit l'ennemi
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {
-        if (enVie && PhotonNetwork.IsMasterClient)
+        if (enVie)
         {
             //Apr�s un petit d�lai
             yield return new WaitForSeconds(delai);
@@ -143,5 +166,11 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     void JoueSonEpee()
     {
         GetComponent<AudioSource>().PlayOneShot(sonEpee);
+    }
+
+    [PunRPC]
+    void JoueSonBalle()
+    {
+        GetComponent<AudioSource>().PlayOneShot(sonBalle);
     }
 }

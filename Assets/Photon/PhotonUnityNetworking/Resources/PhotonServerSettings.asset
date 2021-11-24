@@ -44,6 +44,7 @@ MonoBehaviour:
   - DetruireObjetDelais
   - JoueSonTir
   - JoueSonEpee
+  - JoueSonBalle
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
