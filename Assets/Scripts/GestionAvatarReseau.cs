@@ -51,40 +51,69 @@ public class GestionAvatarReseau : MonoBehaviourPunCallbacks
             //Choisir le son aléatoire qui doit jouer
             float son = Random.Range(1, 3);
             //Premier son...
-            if(son == 1){
-                //photonView.RPC("JouerSonPengouin1", RpcTarget.All);
-                GetComponent<AudioSource>().PlayOneShot(pengouin1, 0.7f);
+            if (PhotonNetwork.PlayerList.Length > 1)
+            {
+                if (son == 1)
+                {
+                    photonView.RPC("JouerSonPengouin1", RpcTarget.Others);
+                    //GetComponent<AudioSource>().PlayOneShot(pengouin1, 0.7f);
+                }
+                //Deuxième son...
+                else if (son == 2)
+                {
+                    photonView.RPC("JouerSonPengouin2", RpcTarget.Others);
+                    //GetComponent<AudioSource>().PlayOneShot(pengouin2, 0.7f);
+                }
+                //Troisième son...
+                else
+                {
+                    photonView.RPC("JouerSonPengouin3", RpcTarget.Others);
+                    //GetComponent<AudioSource>().PlayOneShot(pengouin3, 0.7f);
+                }
             }
-            //Deuxième son...
-            else if(son == 2){
-                //photonView.RPC("JouerSonPengouin2", RpcTarget.All);
-                GetComponent<AudioSource>().PlayOneShot(pengouin2, 0.7f);
-            }
-            //Troisième son...
-            else{
-                //photonView.RPC("JouerSonPengouin3", RpcTarget.All);
-                GetComponent<AudioSource>().PlayOneShot(pengouin3, 0.7f);
-            }
+            else
+            {
+                if (son == 1)
+                {
+                    photonView.RPC("JouerSonPengouin1", PhotonNetwork.LocalPlayer);
+                    //GetComponent<AudioSource>().PlayOneShot(pengouin1, 0.7f);
+                }
+                //Deuxième son...
+                else if (son == 2)
+                {
+                    photonView.RPC("JouerSonPengouin2", PhotonNetwork.LocalPlayer);
+                    //GetComponent<AudioSource>().PlayOneShot(pengouin2, 0.7f);
+                }
+                //Troisième son...
+                else
+                {
+                    photonView.RPC("JouerSonPengouin3", PhotonNetwork.LocalPlayer);
+                    //GetComponent<AudioSource>().PlayOneShot(pengouin3, 0.7f);
+                }
+            }  
+              
             //Réinvoker la fonction
             Invoke("JouerSonPengouin", randomTemps);
-        }
-        
+        }  
     }
-    // [PunRPC]
-    // void JouerSonPengouin1()
-    // {
-    //     GetComponent<AudioSource>().PlayOneShot(pengouin1, 0.7f);
-    // }
-    // [PunRPC]
-    // void JouerSonPengouin2()
-    // {
-    //     GetComponent<AudioSource>().PlayOneShot(pengouin2, 0.7f);
-    // }
-    // [PunRPC]
-    // void JouerSonPengouin3()
-    // {
-    //     GetComponent<AudioSource>().PlayOneShot(pengouin3, 0.7f);
-    // }
+
+    [PunRPC]
+    void JouerSonPengouin1()
+     {
+         GetComponent<AudioSource>().PlayOneShot(pengouin1, 0.7f);
+     }
+
+     [PunRPC]
+     void JouerSonPengouin2()
+     {
+         GetComponent<AudioSource>().PlayOneShot(pengouin2, 0.7f);
+     }
+
+     [PunRPC]
+     void JouerSonPengouin3()
+     {
+         GetComponent<AudioSource>().PlayOneShot(pengouin3, 0.7f);
+     }
 }
 
 
