@@ -45,6 +45,9 @@ MonoBehaviour:
   - JoueSonTir
   - JoueSonEpee
   - JoueSonBalle
+  - JouerSonPengouin1
+  - JouerSonPengouin2
+  - JouerSonPengouin3
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
