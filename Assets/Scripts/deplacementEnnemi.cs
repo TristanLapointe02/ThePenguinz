@@ -64,6 +64,8 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Appeler la fonction qui joue le son de mort en RPC pour tous
             //photonView.RPC("JoueSonMort", RpcTarget.All);
 
+            //Augmenter le compteur de mort
+            compteurMort += 1;
 
             //D�truire l'ennemi sur r�seau
             if (PhotonNetwork.IsMasterClient)
@@ -114,7 +116,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
                 photonView.RPC("JoueSonEpee", RpcTarget.All);
 
                 //Remettre la variable à true après un petit délai
-                Invoke("ActiverSonEpee", 0.35f);
+                Invoke("ActiverSonEpee", 1f);
 
                 //Mettre la frappe à true
                 frappeEpee = true;
@@ -155,10 +157,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(delai);
 
             //D�truire l'ennemi sur r�seau
-            PhotonNetwork.Destroy(PhotonView.Find(pvID));
-
-            //Augmenter le compteur de mort
-            compteurMort += 1;
+            PhotonNetwork.Destroy(PhotonView.Find(pvID));         
         } 
     }
 
