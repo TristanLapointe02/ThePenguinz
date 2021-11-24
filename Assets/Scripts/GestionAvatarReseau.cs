@@ -45,39 +45,42 @@ public class GestionAvatarReseau : MonoBehaviourPunCallbacks
     }
 
     void JouerSonPengouin(){
-        //Variable pour déclarer après combien de temps on re-invoke la fonction
-        float randomTemps = Random.Range(6, 18);
-        //Choisir le son aléatoire qui doit jouer
-        float son = Random.Range(1, 3);
-        //Premier son...
-        if(son == 1){
-            photonView.RPC("JouerSonPengouin1", RpcTarget.All);
+        if(photonView.IsMine){
+            //Variable pour déclarer après combien de temps on re-invoke la fonction
+            float randomTemps = Random.Range(6, 18);
+            //Choisir le son aléatoire qui doit jouer
+            float son = Random.Range(1, 3);
+            //Premier son...
+            if(son == 1){
+                photonView.RPC("JouerSonPengouin1", RpcTarget.All);
+            }
+            //Deuxième son...
+            else if(son == 2){
+                photonView.RPC("JouerSonPengouin2", RpcTarget.All);
+            }
+            //Troisième son...
+            else{
+                photonView.RPC("JouerSonPengouin3", RpcTarget.All);
+            }
+            //Réinvoker la fonction
+            Invoke("JouerSonPengouin", randomTemps);
         }
-        //Deuxième son...
-        else if(son == 2){
-            photonView.RPC("JouerSonPengouin2", RpcTarget.All);
-        }
-        //Troisième son...
-        else{
-            photonView.RPC("JouerSonPengouin3", RpcTarget.All);
-        }
-        //Réinvoker la fonction
-        Invoke("JouerSonPengouin", randomTemps);
+        
     }
     [PunRPC]
     void JouerSonPengouin1()
     {
-        GetComponent<AudioSource>().PlayOneShot(pengouin1, 1f);
+        GetComponent<AudioSource>().PlayOneShot(pengouin1, 0.7f);
     }
     [PunRPC]
     void JouerSonPengouin2()
     {
-        GetComponent<AudioSource>().PlayOneShot(pengouin2, 1f);
+        GetComponent<AudioSource>().PlayOneShot(pengouin2, 0.7f);
     }
     [PunRPC]
     void JouerSonPengouin3()
     {
-        GetComponent<AudioSource>().PlayOneShot(pengouin3, 1f);
+        GetComponent<AudioSource>().PlayOneShot(pengouin3, 0.7f);
     }
 }
 
