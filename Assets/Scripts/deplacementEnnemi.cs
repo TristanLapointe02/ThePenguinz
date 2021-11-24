@@ -14,7 +14,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public bool mort; //Variable d�tectant la mort de l'ennemi
     public static int compteurMort = 0; //Compteur de mort
     bool enVie = true; //Déterminer si l'ennemi est en vie
-
+    public AudioClip sonEpee; //Son de l'épée
 
     void Start()
     {
@@ -103,6 +103,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         {
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 100f;
+
+            //Appeler la fonction pour le son de l'épée qui touche l'ennemi
+            photonView.RPC("JoueSonEpee", RpcTarget.All);
         }
 
         //Si l'ennemi se fait toucher par une balle
@@ -132,5 +135,11 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
         //Augmenter le compteur de mort
         compteurMort += 1;
+    }
+
+    [PunRPC]
+    void JoueSonEpee()
+    {
+        GetComponent<AudioSource>().PlayOneShot(sonEpee);
     }
 }
