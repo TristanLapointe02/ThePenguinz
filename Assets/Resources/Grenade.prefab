@@ -444,7 +444,7 @@ MonoBehaviour:
   corpsGrenade: {fileID: 7374921015839716424}
   espaceCollision: {fileID: 7267163770557813153}
   sonExplosion: {fileID: 8300000, guid: 126b22aaa2d18d04882214baa566c8c4, type: 3}
-  force: 1000
+  force: 500
   rayon: 5
 --- !u!82 &4624297381506449165
 AudioSource:
@@ -459,13 +459,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.15
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0.8
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -502,7 +502,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.8
       inSlope: 0
       outSlope: 0
       tangentMode: 0

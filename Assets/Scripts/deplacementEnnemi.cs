@@ -67,9 +67,6 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
             GetComponent<NavMeshAgent>().enabled = false;
 
-            //Enlever le collider
-            //GetComponent<Collider>().enabled = false;
-
             //Freeze le rigidbody
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
@@ -82,6 +79,8 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
                     PhotonNetwork.InstantiateRoomObject("boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
                 }
             }
+
+            //Indiquer qu'il n'est plus en vie
             enVie = false;
             
         }
@@ -117,13 +116,11 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         if (collision.gameObject.name == "collisionGrenade")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 300f;
-            //GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
-            
+            vieEnnemi -= 300f; 
         }
     }
 
-    //Fonction qui d�truit l'ennemi
+    //Fonction qui détruit l'ennemi
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {

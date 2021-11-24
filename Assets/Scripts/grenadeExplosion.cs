@@ -33,13 +33,12 @@ public class grenadeExplosion : MonoBehaviourPunCallbacks
 
         //Jouer le son en RPC pour tous
         GetComponent<AudioSource>().PlayOneShot(sonExplosion);
-        //photonView.RPC("JoueSon", RpcTarget.All);
 
         //Activer la particule
         particuleExplosion.gameObject.SetActive(true);
 
         //Détruire la grenade après 1 seconde
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 1.5f);
         /*int pvID = GetComponent<PhotonView>().ViewID;
         photonView.RPC("DetruireObjet", RpcTarget.MasterClient, pvID, 2);*/
 
@@ -57,13 +56,6 @@ public class grenadeExplosion : MonoBehaviourPunCallbacks
             }
         }
     }
-
-    /*[PunRPC]
-    void JoueSon()
-    {
-        GetComponent<AudioSource>().PlayOneShot(sonExplosion);
-    }*/
-
     /*[PunRPC]
     IEnumerator DetruireObjetDelais(int pvID, int delais)
     {

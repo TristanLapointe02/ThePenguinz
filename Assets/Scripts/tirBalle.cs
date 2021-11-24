@@ -11,33 +11,12 @@ public class tirBalle : MonoBehaviourPunCallbacks
 {
     public bool peutTirer = true; //V�rifie si le joueur peut tirer
     public GameObject balle; //La balle qui est instanci�e au tir
-    public Transform boutFusil; //D�termine o� est le bout du fusil (o� la balle devrait spawn)
+    public static Transform boutFusil; //D�termine o� est le bout du fusil (o� la balle devrait spawn)
+    public AudioClip tirSon; //Effet sonore du tir
 
     // L'action du contrôleur qui active/désactive le rayon. Peut être autre chose que le grip. Action à définir dans le tableau InputAction
     [SerializeField]
     InputActionReference inputActionReference_ActiveTrigger; 
-
-    private void Start()
-    {
-        //boutFusil = GameObject.Find("BoutFusil");
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (photonView.IsMine)
-        {
-            //Instancier une balle si le joueur appuie sur clique gauche
-            // if (Input.GetKeyDown(KeyCode.Mouse0) && peutTirer == true)
-            // {
-            //     //Instancier la balle
-            //     GameObject nouvelleBalle = PhotonNetwork.Instantiate(balle.name, boutFusil.transform.position, boutFusil.transform.rotation, 0, null);
-
-            //     //Lui appliquer une v�locit� pour la projeter vers l'avant
-            //     nouvelleBalle.GetComponent<Rigidbody>().velocity = boutFusil.transform.forward * 30;
-            // }
-
-        }
-    }
 
     public override void OnEnable(){
         inputActionReference_ActiveTrigger.action.performed += ActiveTrigger;
@@ -52,27 +31,28 @@ public class tirBalle : MonoBehaviourPunCallbacks
 
     private void ActiveTrigger(InputAction.CallbackContext obj)
     {
-       
         // Bouton enfoncé, on active le rayon
         // ReadValue<float> permet de récuperé la valeur de type float contenu dans le paramètre obj
-        if (obj.ReadValue<float>() == 1f)
+        if (obj.ReadValue<float>() == 1f && boutFusil != null)
         {
             if (photonView.IsMine){
+                //Instancier une nouvelle balle
                 GameObject nouvelleBalle = PhotonNetwork.Instantiate(balle.name, boutFusil.transform.position, boutFusil.transform.rotation, 0, null);
+
                 //Lui appliquer une v�locit� pour la projeter vers l'avant
                 nouvelleBalle.GetComponent<Rigidbody>().velocity = boutFusil.transform.forward * 40;
+
+                //Appeler la fonction pour le son du tir
+                photonView.RPC("JoueSonTir", RpcTarget.All);
             }
         }
     }
 
-    public void OnCollisionEnter(Collision infocollision)
-    {
-        //Si l'arme touche un joueur
-        if (infocollision.gameObject.tag == "Gun")
-        {
-            boutFusil = infocollision.transform.Find("boutFusil");
+    [PunRPC]
 
-        }
+    void JoueSonTir()
+    {
+        GetComponent<AudioSource>().PlayOneShot(tirSon);
     }
 }
 
