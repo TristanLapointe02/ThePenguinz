@@ -48,10 +48,13 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         
 
         //MORT DU ENNEMI
-        if (vieEnnemi <= 0 && enVie && photonView.IsMine)
+        if (vieEnnemi <= 0 && enVie)
         {
             //Signaler qu'il est mort
             mort = true;
+
+            //Indiquer qu'il n'est plus en vie
+            enVie = false;
 
             //Activer l'animation de mort
             GetComponent<Animator>().SetBool("Mort", true);
@@ -79,10 +82,6 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
                     PhotonNetwork.InstantiateRoomObject("boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
                 }
             }
-
-            //Indiquer qu'il n'est plus en vie
-            enVie = false;
-            
         }
 
         //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
@@ -127,7 +126,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {
-        if (enVie)
+        if (enVie && PhotonNetwork.IsMasterClient)
         {
             //Apr�s un petit d�lai
             yield return new WaitForSeconds(delai);
