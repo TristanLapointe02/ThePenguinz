@@ -6,6 +6,10 @@ public class detectionTir : MonoBehaviour
 {
     public Transform fusilEnfant;
 
+    void Start()
+    {
+        Physics.IgnoreLayerCollision(9, 10);
+    }
     public void OnTriggerEnter(Collider collision)
     {
         //Si l'arme touche un joueur

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7849183612768466002}
   - component: {fileID: 7819795801242055310}
   - component: {fileID: 7831555811231015188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Handgun_01_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2438835104797493004}
   - component: {fileID: -1561266646243157051}
   - component: {fileID: 5237664531250927089}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gun
   m_TagString: Gun
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 7850594373516147896}
   - component: {fileID: 7820779126593111872}
   - component: {fileID: 7829628150157767256}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Handgun_01_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 7850405081198271290}
   - component: {fileID: 7821300717004659274}
   - component: {fileID: 7830037809422739530}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Handgun_01_Iron_Sights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7853516975527101008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BoutFusil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7853516975557280120}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,6 +10,7 @@ TagManager:
   - Ennemi
   - Gun
   - Balle
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - ObjetSaisi
   - InvisiblePourCam
   - objetsSocket
-  - 
-  - 
+  - fusil
+  - ennemi
   - 
   - 
   - 
