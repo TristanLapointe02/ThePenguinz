@@ -31,7 +31,7 @@ public class grenadeExplosion : MonoBehaviourPunCallbacks
         //Activer la hitbox d'explosion
         espaceCollision.gameObject.SetActive(true);
 
-        //Jouer le son en RPC pour tous
+        //Jouer le son
         GetComponent<AudioSource>().PlayOneShot(sonExplosion);
 
         //Activer la particule
