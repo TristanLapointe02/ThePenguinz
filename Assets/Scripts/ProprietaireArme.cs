@@ -25,6 +25,7 @@ public class ProprietaireArme : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        /*
         if(gameObject.name == "Boule")
         {
             //Désactiver le script sur le socket pour tous les joueurs qui sont pas owner de cet objet
@@ -36,7 +37,7 @@ public class ProprietaireArme : MonoBehaviourPunCallbacks
             {
                 socket.SetActive(true);
             }
-        }
+        }*/
     }
 
     /*public void OnTriggerExit(Collider collision)
