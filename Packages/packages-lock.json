@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.collab-proxy": {
-      "version": "1.13.5",
+      "version": "1.15.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -43,10 +43,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.0.2",
+      "version": "1.1.1",
       "depth": 1,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
@@ -142,7 +144,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.7.2",
+      "version": "1.7.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -165,7 +167,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.legacyinputhelpers": {
-      "version": "2.1.7",
+      "version": "2.1.8",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -175,7 +177,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.management": {
-      "version": "4.1.0",
+      "version": "4.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -188,7 +190,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.oculus": {
-      "version": "1.10.0",
+      "version": "1.11.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
