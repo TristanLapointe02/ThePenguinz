@@ -8,11 +8,14 @@ public class victoireJeu : MonoBehaviour
     public AudioClip sonVictoire; //Son d'explosion de la grenade
     public GameObject texteVictoire; //Référence au texte de victoire
     public bool victoireActive; //Condition pour pas que la fonction se réexécute
-    // Start is called before the first frame update    
+    public static bool boule1Active; //Condition pour savoir si la boule 1 est déposée
+    public static bool boule2Active; //Condition pour savoir si la boule 2 est déposée
 
+      
+    //Appeler cette fonction de victoire lorsque les deux socket ont été select par leur boule respecter. Ensuite, le socket principal avctive la victoire
     public void Victoire()
     {
-        if(victoireActive == false) {
+        if(victoireActive == false && boule1Active && boule2Active && gameObject.name == "Socket") {
             //Activer les particules de victoire en boucle
             InvokeRepeating("particulesVictoire", 0f, 0.1f);
 
@@ -26,6 +29,17 @@ public class victoireJeu : MonoBehaviour
 
             //Indiquer que la victoire est faite
             victoireActive = true;
+        }
+
+        if(gameObject.name == "Socket")
+        {
+            boule1Active = true;
+            
+        }
+        else if (gameObject.name == "Socket2")
+        {
+            boule2Active = true;
+
         }
     }
 
