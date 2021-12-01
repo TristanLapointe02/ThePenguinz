@@ -8,8 +8,7 @@ using Photon.Realtime;
 public class deplacementEnnemi : MonoBehaviourPunCallbacks
 {
     NavMeshAgent navAgent; //Raccourci pour la navmesh agent
-    public GameObject[] joueurs; //Tableau contenant les joueurs
-    public GameObject joueurAleatoire; //Joueur qui sera choisi al�atoirement au d�but
+    public GameObject totem; //Déclaration de  la référence du gameObject du collider du totem
     public float vieEnnemi; //Vie de l'ennemi
     public bool mort; //Variable d�tectant la mort de l'ennemi
     public static int compteurMort = 0; //Compteur de mort
@@ -17,6 +16,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public AudioClip sonEpee; //Son de l'épée
     public bool frappeEpee; //Booléenne pour empêcher la son de l'épée qui joue en boucle
     public AudioClip sonBalle; //Son de la balle qui touche l'ennemi
+    public bool peutAttaquer = true; //Variable qui fait référence au savoir de l'attaque de l'ennemi
 
     void Start()
     {
@@ -33,21 +33,16 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
         //Aller chercher le raccourci pour navmesh agent
         navAgent = GetComponent<NavMeshAgent>();
+        totem = GameObject.Find("TotemCentre");
 
-        //Stocker tous les joueurs dans le tableau
-        joueurs = GameObject.FindGameObjectsWithTag("Player");
+       //L'envoyer à la référence du gameObject du collider du Totem
+       navAgent.SetDestination(totem.transform.position);
 
-        //Trouver un joueur al�aoire
-        joueurAleatoire = joueurs[Random.Range(0, joueurs.Length)];
+        
     }
 
     void Update()
     {
-        //Dire � l'agent de se diriger vers le joueur choisi
-        if(enVie){
-            navAgent.SetDestination(joueurAleatoire.transform.position);
-        }
-        
 
         //MORT DU ENNEMI
         if (vieEnnemi <= 0 && enVie)
