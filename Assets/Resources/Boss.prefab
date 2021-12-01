@@ -191,13 +191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e318c9ac809dce94bbf960288aae1b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joueurs: []
-  joueurAleatoire: {fileID: 0}
+  totem: {fileID: 0}
   vieEnnemi: 100
   mort: 0
   sonEpee: {fileID: 8300000, guid: 7637626a0ec52ec42ac257dbe9e32316, type: 3}
   frappeEpee: 0
   sonBalle: {fileID: 8300000, guid: 15458a084533bc846b7b465b4fce265f, type: 3}
+  peutAttaquer: 1
 --- !u!114 &374712618687060282
 MonoBehaviour:
   m_ObjectHideFlags: 0

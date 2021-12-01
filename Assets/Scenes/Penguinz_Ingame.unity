@@ -5137,8 +5137,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -7.5, y: 0}
-  m_SizeDelta: {x: -15, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &717369340 stripped
 Transform:
@@ -8383,7 +8383,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ba6dc10bad7be49a84b5e85ebe4a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vieTotem: 100
+  vieTotem: 1
+  sliderJoueur: {fileID: 268226906}
+  degatEnnemi: 0.08
+  degatBoss: 0.3
 --- !u!1001 &1247407671
 PrefabInstance:
   m_ObjectHideFlags: 0
