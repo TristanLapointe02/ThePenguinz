@@ -15,7 +15,17 @@ public class victoireJeu : MonoBehaviour
     //Appeler cette fonction de victoire lorsque les deux socket ont été select par leur boule respecter. Ensuite, le socket principal avctive la victoire
     public void Victoire()
     {
-        if(victoireActive == false && boule1Active && boule2Active && gameObject.name == "Socket") {
+        if (gameObject.name == "Socket")
+        {
+            boule1Active = true;
+
+        }
+        else if (gameObject.name == "Socket2")
+        {
+            boule2Active = true;
+        }
+
+        if (victoireActive == false && boule1Active && boule2Active && gameObject.name == "Socket") {
             //Activer les particules de victoire en boucle
             InvokeRepeating("particulesVictoire", 0f, 0.1f);
 
@@ -29,18 +39,7 @@ public class victoireJeu : MonoBehaviour
 
             //Indiquer que la victoire est faite
             victoireActive = true;
-        }
-
-        if(gameObject.name == "Socket")
-        {
-            boule1Active = true;
-            
-        }
-        else if (gameObject.name == "Socket2")
-        {
-            boule2Active = true;
-
-        }
+        } 
     }
 
     public void particulesVictoire()
