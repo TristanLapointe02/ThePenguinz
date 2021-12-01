@@ -24,8 +24,12 @@ public class victoireJeu : MonoBehaviour
         {
             boule2Active = true;
         }
+    }
 
-        if (victoireActive == false && boule1Active && boule2Active && gameObject.name == "Socket") {
+    public void Update()
+    {
+        if (victoireActive == false && boule1Active && boule2Active && gameObject.name == "Socket")
+        {
             //Activer les particules de victoire en boucle
             InvokeRepeating("particulesVictoire", 0f, 0.1f);
 
@@ -39,7 +43,7 @@ public class victoireJeu : MonoBehaviour
 
             //Indiquer que la victoire est faite
             victoireActive = true;
-        } 
+        }
     }
 
     public void particulesVictoire()
