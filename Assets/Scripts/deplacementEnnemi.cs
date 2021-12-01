@@ -87,19 +87,13 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
                 //Faire spawn la boule � neige sur r�seau
                 if (PhotonNetwork.IsMasterClient == true)
                 {
+                    //La première boule
                     PhotonNetwork.InstantiateRoomObject("boule", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
+
+                    //La deuxième boule
+                    PhotonNetwork.InstantiateRoomObject("boule2", gameObject.transform.position + transform.up * 2, Quaternion.identity, 0, null);
                 }
             }
-        }
-
-        //S'ASSURER QUE LA VIE RESTE DANS SES LIMITES
-        if (vieEnnemi >= 100f)
-        {
-            vieEnnemi = 100f;
-        }
-        else if (vieEnnemi <= 0)
-        {
-            vieEnnemi = 0f;
         }
     }
 

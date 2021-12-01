@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 374712618687060283}
   - component: {fileID: 374712618687060280}
   - component: {fileID: -6890537946323658192}
+  - component: {fileID: -5014563712976945921}
   m_Layer: 10
   m_Name: Boss
   m_TagString: Ennemi
@@ -268,6 +269,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 374712618687060282}
   - {fileID: 374712618687060283}
+  - {fileID: -5014563712976945921}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -367,6 +369,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-5014563712976945921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716730903489489284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &735845652024052447
 GameObject:
   m_ObjectHideFlags: 0
