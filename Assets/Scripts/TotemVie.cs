@@ -24,7 +24,7 @@ public class TotemVie : MonoBehaviour
 
     }
     
-    IEnumerator OnTrigger(Collider infoCollision){
+    IEnumerator OnTriggerEnter(Collider infoCollision){
 
         if(infoCollision.gameObject.tag == "Ennemi" && infoCollision.gameObject.GetComponent<deplacementEnnemi>().peutAttaquer == true){
             //Indiquer à l'ennemi qu'il ne peut plus attaquer...
