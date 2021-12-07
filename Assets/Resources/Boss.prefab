@@ -193,7 +193,8 @@ MonoBehaviour:
   sonEpee: {fileID: 8300000, guid: 7637626a0ec52ec42ac257dbe9e32316, type: 3}
   frappeEpee: 0
   sonBalle: {fileID: 8300000, guid: 15458a084533bc846b7b465b4fce265f, type: 3}
-  peutAttaquer: 1
+  tentes: []
+  sonHit: {fileID: 8300000, guid: b6398934ade166c4a86eaf41085c8333, type: 3}
 --- !u!114 &374712618687060282
 MonoBehaviour:
   m_ObjectHideFlags: 0

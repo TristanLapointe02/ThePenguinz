@@ -16,12 +16,14 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public AudioClip sonEpee; //Son de l'épée
     public bool frappeEpee; //Booléenne pour empêcher la son de l'épée qui joue en boucle
     public AudioClip sonBalle; //Son de la balle qui touche l'ennemi
-    public bool peutAttaquer = true; //Variable qui fait référence au savoir de l'attaque de l'ennemi
+    public GameObject[] tentes; //Tentes dans le jeu
+    public AudioClip sonHit; //Son lorsqu'un ennemi touche le totem
 
     void Start()
     {
+        tentes = GameObject.FindGameObjectsWithTag("tentes");
         //D�f�nir la vie de l'ennemi et du boss
-        if(gameObject.name == "Ennemi(Clone)")
+        if (gameObject.name == "Ennemi(Clone)")
         {
             vieEnnemi = 100f;
         }
@@ -35,10 +37,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         navAgent = GetComponent<NavMeshAgent>();
         totem = GameObject.Find("TotemCentre");
 
-       //L'envoyer à la référence du gameObject du collider du Totem
-       navAgent.SetDestination(totem.transform.position);
-
-        
+        //L'envoyer à la référence du gameObject du collider du Totem
+        navAgent.SetDestination(totem.transform.position);
+  
     }
 
     void Update()
@@ -92,7 +93,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnTriggerEnter(Collider collision)
+    IEnumerator OnTriggerEnter(Collider collision)
     {
         //Si l'ennemi touche une épée
         if (collision.gameObject.name == "Sword(Clone)")
@@ -128,6 +129,26 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 300f; 
         }
+
+        //Si l'ennemi touche un totem
+        if (collision.gameObject.name == "TotemCentre")
+        {
+            //Après 2 secondes, retourner vers le totem
+            Invoke("directionTotem", 10f);
+
+            //Activer l'animation d'attaquer
+            GetComponent<Animator>().SetTrigger("Attaque");
+
+            //Attendre une seconde pour lui laisser le temps de jouer son animation
+            yield return new WaitForSeconds(1f);
+
+            //Jouer le son de hit
+            GetComponent<AudioSource>().PlayOneShot(sonHit);
+
+            //Le rediriger vers une tente aléatoire
+            navAgent.SetDestination(tentes[Random.Range(0, tentes.Length)].transform.position);
+
+        }
     }
 
     //Fonction qui permet de rappeler le son de l'épée
@@ -160,5 +181,14 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     void JoueSonBalle()
     {
         GetComponent<AudioSource>().PlayOneShot(sonBalle);
+    }
+
+    void directionTotem()
+    {
+        if (enVie)
+        {
+            //Rediriger l'ennemi vers le totem
+            navAgent.SetDestination(totem.transform.position);
+        }
     }
 }

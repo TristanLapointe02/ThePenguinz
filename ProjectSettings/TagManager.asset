@@ -11,6 +11,8 @@ TagManager:
   - Gun
   - Balle
   - FxTemporaire
+  - Fire
+  - tentes
   layers:
   - Default
   - TransparentFX
