@@ -8999,10 +8999,10 @@ MonoBehaviour:
   - {fileID: 583058326}
   - {fileID: 745665082}
   - {fileID: 782247021}
-  tempsSpawnEnnemis: 3
+  tempsSpawnEnnemis: 4
   ennemiPeutSpawn: 1
   bossPeutSpawn: 1
-  nbEnnemisATuer: 3
+  nbEnnemisATuer: 10
 --- !u!1001 &1360843994
 PrefabInstance:
   m_ObjectHideFlags: 0
