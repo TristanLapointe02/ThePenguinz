@@ -172,10 +172,12 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
             //Attendre un peu pour lui laisser le temps de jouer son animation
             yield return new WaitForSeconds(1f);
-            
-            //Le rediriger vers une tente aléatoire
-            navAgent.SetDestination(tentes[Random.Range(0, tentes.Length)].transform.position);
 
+            if (enVie)
+            {
+                //Le rediriger vers une tente aléatoire
+                navAgent.SetDestination(tentes[Random.Range(0, tentes.Length)].transform.position);
+            } 
         }
     }
 
