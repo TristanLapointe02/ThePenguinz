@@ -59,9 +59,6 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Activer l'animation de mort
             GetComponent<Animator>().SetBool("Mort", true);
 
-            //Appeler la fonction qui joue le son de mort en RPC pour tous
-            //photonView.RPC("JoueSonMort", RpcTarget.All);
-
             //Augmenter le compteur de mort
             compteurMort += 1;
 
@@ -72,12 +69,6 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
                 photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID, 3);
             }
-
-            //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
-            //GetComponent<NavMeshAgent>().enabled = false;
-
-            //Freeze le rigidbody
-            //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
             navAgent.SetDestination(transform.position);
 
@@ -103,7 +94,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             navAgent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
 
             //Enlever le nav mesh agent
-            navAgent.enabled = false;
+            //navAgent.enabled = false;
 
             //Activer l'animation de victoire
             GetComponent<Animator>().SetBool("Victoire", true);
@@ -175,7 +166,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Attendre un peu pour lui laisser le temps de jouer son animation
             yield return new WaitForSeconds(1f);
 
-            if (enVie)
+            if (enVie && mort == false)
             {
                 //Le rediriger vers une tente aléatoire
                 navAgent.SetDestination(tentes[Random.Range(0, tentes.Length)].transform.position);
