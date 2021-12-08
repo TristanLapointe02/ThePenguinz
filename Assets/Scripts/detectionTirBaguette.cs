@@ -22,7 +22,6 @@ public class detectionTirBaguette : MonoBehaviour
             tirFeuBaguette.boutBaguette = boutBaguette;
             tirFeuBaguette.particuleFeu = particuleFeu;
             tirFeuBaguette.colliderFeu = colliderFeu;
-            print("DEDANS");
         }
     }
 
@@ -34,7 +33,6 @@ public class detectionTirBaguette : MonoBehaviour
             tirFeuBaguette.boutBaguette = null;
             tirFeuBaguette.particuleFeu = null;
             tirFeuBaguette.colliderFeu = null;
-            print("SORTI");
         }
     }
 }

@@ -95,22 +95,23 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
 
         //SI LES ENNEMIS GAGNENT
-        if (TotemVie.defaite == true)
+        if (TotemVie.defaite == true && enVie)
         {
             //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
-            navAgent.isStopped = true;
+            navAgent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+
+            //Enlever le nav mesh agent
+            navAgent.enabled = false;
 
             //Activer l'animation de victoire
             GetComponent<Animator>().SetBool("Victoire", true);
-
         }
-
     }
 
     IEnumerator OnTriggerEnter(Collider collision)
     {
         //Si l'ennemi touche une épée
-        if (collision.gameObject.name == "Sword(Clone)")
+        if (collision.gameObject.name == "Sword(Clone)" && detectionEpee.epeePrise == true)
         {
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 100f;
@@ -148,11 +149,14 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         if (collision.gameObject.name == "ColliderFeu")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 10f;
+            vieEnnemi -= 25f;
+
+            //Appeler la fonction pour le son de la balle qui touche l'ennemi
+            photonView.RPC("JoueSonBalle", RpcTarget.All);
         }
 
         //Si l'ennemi touche un totem
-        if (collision.gameObject.name == "TotemCentre")
+        if (collision.gameObject.name == "TotemCentre" && enVie)
         {
             //Après 10 secondes, retourner vers le totem
             Invoke("directionTotem", 10f);

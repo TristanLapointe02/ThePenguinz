@@ -19,12 +19,6 @@ public class ProprietaireArme : MonoBehaviourPunCallbacks
         {
             //Transf�rer le ownership au joueur local qui l'a touch�
             photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
-
         }
-    }
-    
-    private void Update()
-    {
-        
     }
 }

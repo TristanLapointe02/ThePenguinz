@@ -48,6 +48,8 @@ MonoBehaviour:
   - JouerSonPengouin1
   - JouerSonPengouin2
   - JouerSonPengouin3
+  - JoueSonFeu
+  - StopSonFeu
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -14,7 +14,6 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
     public static GameObject colliderFeu; //Collider du feu. C'est ce qui va toucher à l'ennemi
     public static Transform boutBaguette; //Détermine le bout de la baguette
     public bool feuActif; //Détermine quand le feu est actif
-    public bool feuEtteint; //Détecter si le feu est éteint
     public AudioClip feuSon; //Son du feu
 
     [SerializeField]
@@ -34,11 +33,7 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (feuActif && feuEtteint == false && colliderFeu != null && particuleFeu != null)
-        {
-            Invoke("activeDesactiveFeu", 0f);
-            feuActif = false;
-        }
+
     }
     private void ActiveTrigger(InputAction.CallbackContext obj)
     {
@@ -51,21 +46,20 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
                 //Activer la particule de feu dans la direction du joueur
                 particuleFeu.gameObject.SetActive(true);
 
-                //Activer le collider du feu
-                colliderFeu.gameObject.SetActive(true);
-
                 //Indiquer que le joueur a activé le feu
                 feuActif = true;
 
+                //Commencer la coroutine de la baguette de feu
+                IEnumerator coroutine = test(0.5f);
+                StartCoroutine(coroutine);
+
                 //Faire jouer le son sur réseau
-                //photonView.RPC("JoueSonFeu", RpcTarget.All);
+                photonView.RPC("JoueSonFeu", RpcTarget.All);
             }
         }
 
         if (obj.ReadValue<float>() < 1f && boutBaguette != null)
-        {
-            print("je suis désactivé");
-            
+        {           
             if (photonView.IsMine)
             {
                 //Désactiver la particule de feu dans la direction du joueur
@@ -75,38 +69,39 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
                 colliderFeu.gameObject.SetActive(false);
 
                 //Indiquer que le joueur a désactivé le feu
-                feuEtteint = true;
-
-                //Indiquer que le feu n'est plus actif
                 feuActif = false;
 
-                //Faire jouer le son sur réseau
-                //photonView.RPC("JoueSonFeu", RpcTarget.All);
+                //Arrêter le son su réseau
+                photonView.RPC("StopSonFeu", RpcTarget.All);
             }
         }
     }
 
-    /*[PunRPC]
+    [PunRPC]
     void JoueSonFeu()
     {
         GetComponent<AudioSource>().PlayOneShot(feuSon);
-    }*/
+    }
 
-    public IEnumerator activeDesactiveFeu()
+    [PunRPC]
+    void StopSonFeu()
     {
-        //
-        
+        GetComponent<AudioSource>().Stop();
+    }
 
-        //Activer le collider
-        colliderFeu.SetActive(true);
+    IEnumerator test(float waitTime)
+    {
+        //Quand le feu est actif
+        while(feuActif == true && colliderFeu != null)
+        {
+            //Activer le collider de feu
+            colliderFeu.SetActive(true);
 
-        //Attendre un petit délai
-        yield return new WaitForSeconds(0.25f);
+            //Attendre un petit peu
+            yield return new WaitForSeconds(waitTime);
 
-        //Désactiver le collider
-        colliderFeu.SetActive(false);
-
-        //Réactiver le feu
-        feuActif = true;
+            //Désactiver le collider de feu
+            colliderFeu.SetActive(false);
+        }
     }
 }

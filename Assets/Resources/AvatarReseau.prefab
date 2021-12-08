@@ -1590,8 +1590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   peutTirer: 1
   feuActif: 0
-  feuEtteint: 0
-  feuSon: {fileID: 0}
+  feuSon: {fileID: 8300000, guid: eb57239b73ccdc841af0c9d664860aa5, type: 3}
   inputActionReference_ActiveTrigger: {fileID: 7854810785849814294, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1001 &147826675170656668
 PrefabInstance:
