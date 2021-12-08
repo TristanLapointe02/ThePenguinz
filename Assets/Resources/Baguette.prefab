@@ -85,7 +85,6 @@ GameObject:
   - component: {fileID: 3488785819115194652}
   - component: {fileID: 559980870778685113}
   - component: {fileID: 2315277830341522035}
-  - component: {fileID: 2642780007951863128}
   - component: {fileID: 8377554387514859218}
   - component: {fileID: -2870487213874620247}
   - component: {fileID: -778640905178392973}
@@ -93,6 +92,7 @@ GameObject:
   - component: {fileID: 7706508187970314138}
   - component: {fileID: 700676850410112547}
   - component: {fileID: 7265143601553426980}
+  - component: {fileID: 931502076248176493}
   m_Layer: 12
   m_Name: Baguette
   m_TagString: Untagged
@@ -168,20 +168,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2642780007951863128
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4260819330917749670}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4006300823370068072, guid: 67be24e8ee52ec04497cfee5403c5fa3, type: 3}
 --- !u!54 &8377554387514859218
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -238,16 +224,16 @@ MonoBehaviour:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
+    InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
+    InterpolateLerpSpeed: 5
+    ExtrapolateOption: 2
     ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateIncludingRoundTripTime: 0
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 1
+    InterpolateOption: 2
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:
@@ -298,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 2642780007951863128}
+  - {fileID: 931502076248176493}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -406,6 +392,20 @@ MonoBehaviour:
   boutBaguette: {fileID: 1860012708773766591}
   particuleFeu: {fileID: 7211886065315615880}
   colliderFeu: {fileID: 4110944143695533442}
+--- !u!136 &931502076248176493
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260819330917749670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.10662338
+  m_Height: 0.9848948
+  m_Direction: 1
+  m_Center: {x: 0.03413923, y: 0.17379937, z: -0.0019264668}
 --- !u!1 &9139153389559355113
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 21f6aea0c9b788c4b9b6275efc33d0f9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 21f6aea0c9b788c4b9b6275efc33d0f9, type: 3}
       propertyPath: m_RootOrder

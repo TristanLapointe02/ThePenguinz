@@ -62,8 +62,10 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
             }
         }
 
-        if (obj.ReadValue<float>() == 0f && boutBaguette != null)
+        if (obj.ReadValue<float>() < 1f && boutBaguette != null)
         {
+            print("je suis désactivé");
+            
             if (photonView.IsMine)
             {
                 //Désactiver la particule de feu dans la direction du joueur
@@ -74,6 +76,9 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
 
                 //Indiquer que le joueur a désactivé le feu
                 feuEtteint = true;
+
+                //Indiquer que le feu n'est plus actif
+                feuActif = false;
 
                 //Faire jouer le son sur réseau
                 //photonView.RPC("JoueSonFeu", RpcTarget.All);
@@ -89,6 +94,9 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
 
     public IEnumerator activeDesactiveFeu()
     {
+        //
+        
+
         //Activer le collider
         colliderFeu.SetActive(true);
 

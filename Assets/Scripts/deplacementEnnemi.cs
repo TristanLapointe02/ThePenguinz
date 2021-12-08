@@ -148,7 +148,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         if (collision.gameObject.name == "ColliderFeu")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 5f;
+            vieEnnemi -= 10f;
         }
 
         //Si l'ennemi touche un totem

@@ -22,15 +22,19 @@ public class detectionTirBaguette : MonoBehaviour
             tirFeuBaguette.boutBaguette = boutBaguette;
             tirFeuBaguette.particuleFeu = particuleFeu;
             tirFeuBaguette.colliderFeu = colliderFeu;
+            print("DEDANS");
         }
     }
 
     public void OnTriggerExit(Collider collision)
     {
-        //Si l'arme ne touche plus à un joueur
-        tirFeuBaguette.boutBaguette = null;
-        tirFeuBaguette.particuleFeu = null;
-        tirFeuBaguette.colliderFeu = null;
+        if (collision.gameObject.tag == "Player")
+        {
+            //Si l'arme ne touche plus à un joueur
+            tirFeuBaguette.boutBaguette = null;
+            tirFeuBaguette.particuleFeu = null;
+            tirFeuBaguette.colliderFeu = null;
+            print("SORTI");
+        }
     }
-
 }
