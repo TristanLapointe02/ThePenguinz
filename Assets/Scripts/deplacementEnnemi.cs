@@ -74,10 +74,12 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             }
 
             //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
-            GetComponent<NavMeshAgent>().enabled = false;
+            //GetComponent<NavMeshAgent>().enabled = false;
 
             //Freeze le rigidbody
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+            navAgent.SetDestination(transform.position);
 
             //Si c'�tait le boss
             if (gameObject.name == "Boss(Clone)")
