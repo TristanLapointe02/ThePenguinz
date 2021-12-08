@@ -38,14 +38,16 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         totem = GameObject.Find("TotemCentre");
 
         //L'envoyer à la référence du gameObject du collider du Totem
-        navAgent.SetDestination(totem.transform.position);
-  
+        if (TotemVie.defaite == false)
+        {
+            navAgent.SetDestination(totem.transform.position);
+        }
     }
 
     void Update()
     {
 
-        //MORT DU ENNEMI
+        //MORT DE L'ENNEMI
         if (vieEnnemi <= 0 && enVie)
         {
             //Signaler qu'il est mort
@@ -91,6 +93,18 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
                 }
             }
         }
+
+        //SI LES ENNEMIS GAGNENT
+        if (TotemVie.defaite == true)
+        {
+            //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
+            navAgent.isStopped = true;
+
+            //Activer l'animation de victoire
+            GetComponent<Animator>().SetBool("Victoire", true);
+
+        }
+
     }
 
     IEnumerator OnTriggerEnter(Collider collision)
@@ -130,21 +144,31 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             vieEnnemi -= 300f; 
         }
 
+        //Si l'ennemi se fait toucher par le feu de la baguette magique
+        if (collision.gameObject.name == "ColliderFeu")
+        {
+            //Diminuer la vie de l'ennemi
+            vieEnnemi -= 5f;
+        }
+
         //Si l'ennemi touche un totem
         if (collision.gameObject.name == "TotemCentre")
         {
-            //Après 2 secondes, retourner vers le totem
+            //Après 10 secondes, retourner vers le totem
             Invoke("directionTotem", 10f);
 
             //Activer l'animation d'attaquer
             GetComponent<Animator>().SetTrigger("Attaque");
 
-            //Attendre une seconde pour lui laisser le temps de jouer son animation
-            yield return new WaitForSeconds(1f);
+            //Attendre un peu pour synchroniser le son avec le coup
+            yield return new WaitForSeconds(0.5f);
 
             //Jouer le son de hit
             GetComponent<AudioSource>().PlayOneShot(sonHit);
 
+            //Attendre un peu pour lui laisser le temps de jouer son animation
+            yield return new WaitForSeconds(1f);
+            
             //Le rediriger vers une tente aléatoire
             navAgent.SetDestination(tentes[Random.Range(0, tentes.Length)].transform.position);
 
@@ -185,7 +209,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
     void directionTotem()
     {
-        if (enVie)
+        if (enVie && TotemVie.defaite == false)
         {
             //Rediriger l'ennemi vers le totem
             navAgent.SetDestination(totem.transform.position);

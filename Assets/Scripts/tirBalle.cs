@@ -49,7 +49,6 @@ public class tirBalle : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-
     void JoueSonTir()
     {
         GetComponent<AudioSource>().PlayOneShot(tirSon);

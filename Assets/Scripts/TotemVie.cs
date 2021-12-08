@@ -12,6 +12,7 @@ public class TotemVie : MonoBehaviour
     public AudioClip sonDefaite; //Son de défaite
     public bool delai; //Petit délai pour régler le bug de la caméra
     public bool peutJouerSon; //Condition pour pas que le son se joue en boucle
+    public static bool defaite; //Détermine quand le jeu est terminé
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +28,25 @@ public class TotemVie : MonoBehaviour
             sliderTotem.gameObject.transform.rotation = Camera.main.transform.rotation;
         }      
 
-        if (vieTotem <= 0f && peutJouerSon == false)
+        if (vieTotem <= 0f && peutJouerSon == false && defaite == false)
         {
             //Jouer le son de défaite
-            GetComponent<AudioSource>().PlayOneShot(sonDefaite, 1f);
+            GetComponent<AudioSource>().PlayOneShot(sonDefaite);
 
             //Condition pour pas que le son se joue en boucle
             peutJouerSon = true;
 
             //Détruire le totem
-            Destroy(gameObject);
+            Destroy(gameObject, 2f);
+
+            //Indiquer que c'est la défaite
+            defaite = true;
         }
     }
     
         IEnumerator OnTriggerEnter(Collider infoCollision){
         //Attendre 1 seconde pour être synchro avec l'animation d'attaque de l'ennemi
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (infoCollision.gameObject.tag == "Ennemi"){
 

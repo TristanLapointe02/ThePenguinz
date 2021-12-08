@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class detectionTir : MonoBehaviour
 {
-    public Transform fusilEnfant;
+    public Transform fusilEnfant; //Bout du fusil
 
     void Start()
     {
+        //Ignorer la collision avec les ennemis
         Physics.IgnoreLayerCollision(9, 10);
     }
     public void OnTriggerEnter(Collider collision)

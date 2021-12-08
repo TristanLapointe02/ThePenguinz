@@ -43,7 +43,7 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
     //Fonction qui crée un ennemi
     public void CreationEnnemi()
     {
-        if (ennemiPeutSpawn)
+        if (ennemiPeutSpawn && TotemVie.defaite == false)
         {
             //Définir une position aléatoire
             Vector3 positionAleatoire = positionsEnnemis[Random.Range(0, positionsEnnemis.Length)];
@@ -58,12 +58,16 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
     //Fonction qui crée un boss
     public void CreationBoss()
     {
-        //Définir une position aléatoire
-        Vector3 positionAleatoire = positionsEnnemis[Random.Range(0, positionsEnnemis.Length)];
+        if (TotemVie.defaite == false)
+        {
+            //Définir une position aléatoire
+            Vector3 positionAleatoire = positionsEnnemis[Random.Range(0, positionsEnnemis.Length)];
 
-        //Générer ce boss sur réseau
-        if (PhotonNetwork.IsMasterClient == true){
-            PhotonNetwork.InstantiateRoomObject("Boss", positionAleatoire, Quaternion.identity, 0, null);
+            //Générer ce boss sur réseau
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                PhotonNetwork.InstantiateRoomObject("Boss", positionAleatoire, Quaternion.identity, 0, null);
+            }
         }
     }
 
