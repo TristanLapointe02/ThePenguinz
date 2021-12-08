@@ -91,7 +91,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         if (TotemVie.defaite == true && enVie)
         {
             //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
-            navAgent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+            //navAgent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
 
             //Enlever le nav mesh agent
             //navAgent.enabled = false;
@@ -184,14 +184,13 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {
-        if (enVie)
-        {
+        
             //Apr�s un petit d�lai
             yield return new WaitForSeconds(delai);
 
             //D�truire l'ennemi sur r�seau
             PhotonNetwork.Destroy(PhotonView.Find(pvID));         
-        } 
+        
     }
 
     [PunRPC]
