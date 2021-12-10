@@ -6,7 +6,14 @@ using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit; // accès aux objets du XR Interaction Toolkit
 using UnityEngine.InputSystem; // pour utiliser le nouveau InputSyteme
 using UnityEngine.Events;
-
+/*
+ * Gestion du tir de la baguette de feu
+ * 
+ * Par : Tristan Lapointe et Mathieu Dionne
+ * 
+ * Dernière modification : 2 décembre 2021
+ * 
+*/
 public class tirFeuBaguette : MonoBehaviourPunCallbacks
 {
     public bool peutTirer = true; //Vérifie si le joueur peut faire enflammer la baguette
@@ -16,25 +23,24 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
     public bool feuActif; //Détermine quand le feu est actif
     public AudioClip feuSon; //Son du feu
 
+    // L'action du contrôleur qui active/désactive le rayon. Peut être autre chose que le grip. Action à définir dans le tableau InputAction
     [SerializeField]
     InputActionReference inputActionReference_ActiveTrigger;
 
     public override void OnEnable()
     {
+        // S'exécute lorsque le script devient actif (enable)
+        // Incrémente la fonction qui sera appelée lorsque l'action sera effectuée
         inputActionReference_ActiveTrigger.action.performed += ActiveTrigger;
     }
 
     public override void OnDisable()
     {
-        // s'exécute lorsque le script devient inactif (disable)
-        // retire la fonction qui sera appelée lorsque l'action sera effectuée
+        // S'exécute lorsque le script devient inactif (disable)
+        // Retire la fonction qui sera appelée lorsque l'action sera effectuée
         inputActionReference_ActiveTrigger.action.performed -= ActiveTrigger;
     }
 
-    void Update()
-    {
-
-    }
     private void ActiveTrigger(InputAction.CallbackContext obj)
     {
         // Bouton enfoncé, on active le rayon
@@ -50,7 +56,7 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
                 feuActif = true;
 
                 //Commencer la coroutine de la baguette de feu
-                IEnumerator coroutine = test(0.5f);
+                IEnumerator coroutine = activeFeu(0.5f);
                 StartCoroutine(coroutine);
 
                 //Faire jouer le son sur réseau
@@ -77,19 +83,22 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
         }
     }
 
+    //Fonction qui permet de jouer le son de feu
     [PunRPC]
     void JoueSonFeu()
     {
         GetComponent<AudioSource>().PlayOneShot(feuSon);
     }
 
+    //Fonction qui permet d'arrêter le son de feu
     [PunRPC]
     void StopSonFeu()
     {
         GetComponent<AudioSource>().Stop();
     }
 
-    IEnumerator test(float waitTime)
+    //Fonction qui gère le collider du feu (Active/Désactive)
+    IEnumerator activeFeu(float waitTime)
     {
         //Quand le feu est actif
         while(feuActif == true && colliderFeu != null)

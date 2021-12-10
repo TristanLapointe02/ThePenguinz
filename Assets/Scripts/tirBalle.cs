@@ -6,12 +6,19 @@ using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit; // accès aux objets du XR Interaction Toolkit
 using UnityEngine.InputSystem; // pour utiliser le nouveau InputSyteme
 using UnityEngine.Events;
-
+/*
+ * Gestion du tir du gun
+ * 
+ * Par : Tristan Lapointe et Mathieu Dionne
+ * 
+ * Dernière modification : 2 décembre 2021
+ * 
+*/
 public class tirBalle : MonoBehaviourPunCallbacks
 {
-    public bool peutTirer = true; //V�rifie si le joueur peut tirer
-    public GameObject balle; //La balle qui est instanci�e au tir
-    public static Transform boutFusil; //D�termine o� est le bout du fusil (o� la balle devrait spawn)
+    public bool peutTirer = true; //Vérifie si le joueur peut tirer
+    public GameObject balle; //La balle qui est instanciéee au tir
+    public static Transform boutFusil; //Détermine où est le bout du fusil (où la balle devrait spawn)
     public AudioClip tirSon; //Effet sonore du tir
 
     // L'action du contrôleur qui active/désactive le rayon. Peut être autre chose que le grip. Action à définir dans le tableau InputAction
@@ -19,6 +26,8 @@ public class tirBalle : MonoBehaviourPunCallbacks
     InputActionReference inputActionReference_ActiveTrigger; 
 
     public override void OnEnable(){
+        // s'exécute lorsque le script devient actif (enable)
+        // incrémente la fonction qui sera appelée lorsque l'action sera effectuée
         inputActionReference_ActiveTrigger.action.performed += ActiveTrigger;
     }
 
@@ -42,12 +51,13 @@ public class tirBalle : MonoBehaviourPunCallbacks
                 //Lui appliquer une v�locit� pour la projeter vers l'avant
                 nouvelleBalle.GetComponent<Rigidbody>().velocity = boutFusil.transform.forward * 40;
 
-                //Appeler la fonction pour le son du tir
+                //Appeler la fonction pour le son du tir sur réseau
                 photonView.RPC("JoueSonTir", RpcTarget.All);
             }
         }
     }
 
+    //Fonction qui permet de jouer le son de tir
     [PunRPC]
     void JoueSonTir()
     {

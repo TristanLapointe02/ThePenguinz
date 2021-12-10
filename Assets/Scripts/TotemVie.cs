@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
+ * Gestion de la vie du totem
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 08 décembre 2021
+ * 
+*/
 public class TotemVie : MonoBehaviour
 {
     public float vieTotem = 1f; //Vie du totem
@@ -14,20 +21,21 @@ public class TotemVie : MonoBehaviour
     public bool peutJouerSon; //Condition pour pas que le son se joue en boucle
     public static bool defaite; //Détermine quand le jeu est terminé
 
-    // Start is called before the first frame update
+    //Petit délai pour gérer le bug de l'orientation de la barre de vie du totem avec la main caméra
     void Start()
     {
         Invoke("delaiFonction", 2f);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (delai == true)
         {
+            //Ajuster la rotation de la barre de vie avec la rotation de la caméra du joueur
             sliderTotem.gameObject.transform.rotation = Camera.main.transform.rotation;
         }      
 
+        //Si le totem n'a plus de vie...
         if (vieTotem <= 0f && peutJouerSon == false && defaite == false)
         {
             //Jouer le son de défaite
@@ -44,11 +52,11 @@ public class TotemVie : MonoBehaviour
         }
     }
     
-        IEnumerator OnTriggerEnter(Collider infoCollision){
-        //Attendre 1 seconde pour être synchro avec l'animation d'attaque de l'ennemi
-        yield return new WaitForSeconds(0.5f);
-
+    IEnumerator OnTriggerEnter(Collider infoCollision){
+        //Si c'est un ennemi qui a touché le totem
         if (infoCollision.gameObject.tag == "Ennemi"){
+            //Attendre 0.5 secondes pour être synchro avec l'animation d'attaque de l'ennemi
+            yield return new WaitForSeconds(0.5f);
 
             //Collision de l'ennemi avec le totem
             if (infoCollision.gameObject.name == "Ennemi(Clone)"){
@@ -59,17 +67,23 @@ public class TotemVie : MonoBehaviour
             }
             //Collision du boss avec le totem
             else if (infoCollision.gameObject.name == "Boss(Clone)"){
+                //Enlever un peu de vie
                 vieTotem -= degatBoss;
+                //Rafraîchir la barre de vie
                 sliderTotem.value = vieTotem;
             } 
-            //Changer la main color du totem
+            //Changer la main color du totem pour indiquer qu'il a pris des dégâts
             GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-            yield return new WaitForSeconds(0.1f);
+
+            //Attendre 0.15 secondes
+            yield return new WaitForSeconds(0.15f);
+
             //Remettre la couleur de base
             GetComponent<Renderer>().material.SetColor("_Color", Color.white);
         }
     }
 
+    //Fonction qui gère le délai de correction
     public void delaiFonction()
     {
         delai = true;
