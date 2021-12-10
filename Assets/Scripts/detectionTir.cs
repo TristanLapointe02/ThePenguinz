@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+ * Script associé fusil pour détecté s'il a été pris ou non
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 8 décembre 2021
+ * 
+*/
 public class detectionTir : MonoBehaviour
 {
-    public Transform fusilEnfant; //Bout du fusil
+    public Transform fusilEnfant; //Référence au bout du fusil
 
     void Start()
     {

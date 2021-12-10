@@ -24,9 +24,6 @@ public class GestionRayonTracteur : MonoBehaviour
     [SerializeField]
     InputActionReference inputActionReference_ActiveGrip;
 
-
-
-
     private void OnEnable()
     {
         // s'exécute lorsque le script devient actif (enable)

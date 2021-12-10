@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
-
+/*
+ * Gestion de l'explosion de la grenade
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 24 novembre 2021
+ * 
+*/
 public class grenadeExplosion : MonoBehaviourPunCallbacks
 {
     public GameObject particuleExplosion; //Référence à la particule
@@ -39,27 +46,22 @@ public class grenadeExplosion : MonoBehaviourPunCallbacks
 
         //Détruire la grenade après 1 seconde
         Destroy(gameObject, 1.5f);
-        /*int pvID = GetComponent<PhotonView>().ViewID;
-        photonView.RPC("DetruireObjet", RpcTarget.MasterClient, pvID, 2);*/
 
         //Explosion
         //Aller chercher tous les colliders proche
         Collider[] colliders = Physics.OverlapSphere(transform.position, rayon);
         
-        //Pour chaque collider, trouver les rigidbody et appliquer une force d'explosion provenant du centre de la grenade
+        //Pour chaque collider proche
         foreach(Collider nearby in colliders)
         {
+            //Trouver les rigidbody
             Rigidbody rigg = nearby.GetComponent<Rigidbody>();
-            if(rigg != null && rigg.gameObject.tag != "Ennemi")
+
+            //Si c'est tout sauf un ennemi, appliquer une force d'explosion provenant du centre de la grenade
+            if (rigg != null && rigg.gameObject.tag != "Ennemi")
             {
                 rigg.AddExplosionForce(force, transform.position, rayon);
             }
         }
     }
-    /*[PunRPC]
-    IEnumerator DetruireObjetDelais(int pvID, int delais)
-    {
-        yield return new WaitForSeconds(delais);
-        PhotonNetwork.Destroy(PhotonView.Find(pvID));
-    }*/
 }

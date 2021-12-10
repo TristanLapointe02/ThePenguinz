@@ -1,29 +1,20 @@
-//**********************************************************************
-//Gestion de la connexion du joueur avec le serveur PUN.
-//@The Penguinz
-//2021-11-07
-//**********************************************************************
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+/*
+ * Gestion de la connexion du joueur avec le serveur PUN.
+ * 
+ * Par : Jérémy Émond-Lapierre
+ * 
+ * Dernière modification : 18 novembre 2021
+ * 
+*/
 
 public class GestionConnexion : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void Awake(){
         //On connecte le joueur
         PhotonNetwork.ConnectUsingSettings();
@@ -44,12 +35,9 @@ public class GestionConnexion : MonoBehaviourPunCallbacks
     //Quand un joueur rentre dans la salle
     public override void OnJoinedRoom()
 	{
-		//print("Nom salle = " + PhotonNetwork.CurrentRoom.Name );
-		//print("joueurs connectés = " + PhotonNetwork.CountOfPlayers );
         if(PhotonNetwork.CountOfPlayers == 2){
             //Ici on metterait une variable à true pour lancer le jeu 
         }
         PhotonNetwork.Instantiate("AvatarReseau",new Vector3(Random.Range(-5f, 5f),0f,Random.Range(-5f, 5f)),Quaternion.identity, 0,null );
-        //PhotonNetwork.Instantiate("AvatarReseau",new Vector3(-0.37f,0.28f,4.9f),Quaternion.identity, 0,null );
     } 
 }

@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+ * Script associé à la baguette pour savoir si elle prise ou non
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 8 décembre 2021
+ * 
+*/
 public class detectionTirBaguette : MonoBehaviour
 {
-    public Transform boutBaguette; //Bout de la baguette
-    public GameObject particuleFeu; //Particule de feu
+    public Transform boutBaguette; //Référence au bout de la baguette
+    public GameObject particuleFeu; //Référence à la particule de feu de la baguette
     public GameObject colliderFeu; //Collider du feu. C'est ce qui va toucher à l'ennemi
 
     void Start()
@@ -27,9 +34,9 @@ public class detectionTirBaguette : MonoBehaviour
 
     public void OnTriggerExit(Collider collision)
     {
+        //Si l'arme ne touche plus à un joueur
         if (collision.gameObject.tag == "Player")
         {
-            //Si l'arme ne touche plus à un joueur
             tirFeuBaguette.boutBaguette = null;
             tirFeuBaguette.particuleFeu = null;
             tirFeuBaguette.colliderFeu = null;

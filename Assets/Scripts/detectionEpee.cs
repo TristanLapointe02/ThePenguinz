@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+ * Script associé à l'épée pour savoir si elle a été prise
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 8 décembre 2021
+ * 
+*/
 public class detectionEpee : MonoBehaviour
 {
-    public static bool epeePrise; //Détecter si l'épée est prise ou non
+    public static bool epeePrise; //Variable qui détecte si l'épée est prise ou non
 
     public void OnTriggerEnter(Collider collision)
     {

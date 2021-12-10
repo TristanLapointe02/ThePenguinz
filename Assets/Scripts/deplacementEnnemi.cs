@@ -4,7 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 using Photon.Realtime;
-
+/*
+ * Script aux ennemis permettant de contrôler leur mouvement et leurs vie.
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 20 novembre 2021
+ * 
+*/
 public class deplacementEnnemi : MonoBehaviourPunCallbacks
 {
     NavMeshAgent navAgent; //Raccourci pour la navmesh agent
@@ -21,8 +28,13 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        //Référence aux tentes du jeu. Sert pour plus tard...
         tentes = GameObject.FindGameObjectsWithTag("tentes");
-        //D�f�nir la vie de l'ennemi et du boss
+
+        //Référence au totem du jeu. Sert pour plus tard...
+        totem = GameObject.Find("TotemCentre");
+
+        //Défénir la vie de l'ennemi et du boss
         if (gameObject.name == "Ennemi(Clone)")
         {
             vieEnnemi = 100f;
@@ -30,14 +42,13 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
         else if (gameObject.name == "Boss(Clone)")
         {
-            vieEnnemi = 250f;
+            vieEnnemi = 350f;
         }
 
         //Aller chercher le raccourci pour navmesh agent
         navAgent = GetComponent<NavMeshAgent>();
-        totem = GameObject.Find("TotemCentre");
 
-        //L'envoyer à la référence du gameObject du collider du Totem
+        //Diriger la destination de l'ennemi au Totem si le jeu n'est pas perdu
         if (TotemVie.defaite == false)
         {
             navAgent.SetDestination(totem.transform.position);
@@ -46,14 +57,11 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
     void Update()
     {
-
         //MORT DE L'ENNEMI
         if (vieEnnemi <= 0 && enVie)
         {
-            //Signaler qu'il est mort
+            //Signaler qu'il est mort et signaler qu'il n'est plus en vie
             mort = true;
-
-            //Indiquer qu'il n'est plus en vie
             enVie = false;
 
             //Activer l'animation de mort
@@ -65,17 +73,18 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //D�truire l'ennemi sur r�seau
             if (PhotonNetwork.IsMasterClient)
             {
+                //Trouver le photon view et l'envoyer au RPC pour indiquer à tous les joueurs que l'ennemi est détruit
                 int pvID = gameObject.GetComponent<PhotonView>().ViewID;
-
                 photonView.RPC("MortEnnemi", RpcTarget.MasterClient, pvID, 3);
             }
 
+            //Il reste en place
             navAgent.SetDestination(transform.position);
 
-            //Si c'�tait le boss
+            //..Si l'ennemi tué était le boss
             if (gameObject.name == "Boss(Clone)")
             {
-                //Faire spawn la boule � neige sur r�seau
+                //Faire spawn les boules a neige sur réseau
                 if (PhotonNetwork.IsMasterClient == true)
                 {
                     //La première boule
@@ -87,20 +96,15 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             }
         }
 
-        //SI LES ENNEMIS GAGNENT
+        //VICTOIRE DE L'ENNEMI
         if (TotemVie.defaite == true && enVie)
         {
-            //Arr�ter l'ennemi pour pas qu'il poursuit son chemin
-            //navAgent.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
-
-            //Enlever le nav mesh agent
-            //navAgent.enabled = false;
-
             //Activer l'animation de victoire
             GetComponent<Animator>().SetBool("Victoire", true);
         }
     }
 
+    //Vérifier les collisions...
     IEnumerator OnTriggerEnter(Collider collision)
     {
         //Si l'ennemi touche une épée
@@ -109,6 +113,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Diminuer la vie de l'ennemi
             vieEnnemi -= 100f;
 
+            //S'assurer, avec une booléenne, que le son se fait juste une fois
             if (frappeEpee == false){
                 //Appeler la fonction pour le son de l'épée qui touche l'ennemi
                 photonView.RPC("JoueSonEpee", RpcTarget.All);
@@ -125,47 +130,51 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         if (collision.gameObject.tag == "Balle")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 35f;
+            vieEnnemi -= 45f;
 
             //Appeler la fonction pour le son de la balle qui touche l'ennemi
             photonView.RPC("JoueSonBalle", RpcTarget.All);
         }
 
-        //Si l'ennemi se fait exploser fatalement
+        //Si l'ennemi se fait exploser par une grenade
         if (collision.gameObject.name == "collisionGrenade")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 150f; 
+            vieEnnemi -= 175f; 
         }
 
         //Si l'ennemi se fait toucher par le feu de la baguette magique
         if (collision.gameObject.name == "ColliderFeu")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 20f;
+            vieEnnemi -= 25f;
 
-            //Appeler la fonction pour le son de la balle qui touche l'ennemi
+            //Appeler la fonction pour le son du feu qui touche l'ennemi
             photonView.RPC("JoueSonBalle", RpcTarget.All);
         }
 
         //Si l'ennemi touche un totem
-        if (collision.gameObject.name == "TotemCentre" && enVie)
+        if (collision.gameObject.name == "TotemCentre" && enVie && mort==false)
         {
             //Après 10 secondes, retourner vers le totem
             Invoke("directionTotem", 10f);
 
-            //Activer l'animation d'attaquer
+            //Activer l'animation d'attaque
             GetComponent<Animator>().SetTrigger("Attaque");
 
             //Attendre un peu pour synchroniser le son avec le coup
             yield return new WaitForSeconds(0.5f);
 
-            //Jouer le son de hit
-            GetComponent<AudioSource>().PlayOneShot(sonHit);
+            //Jouer le son de hit s'il est encore en vie
+            if (enVie && mort == false)
+            {
+                GetComponent<AudioSource>().PlayOneShot(sonHit);
+            }
 
-            //Attendre un peu pour lui laisser le temps de jouer son animation
+            //Attendre un peu pour lui laisser le temps de finir son animation
             yield return new WaitForSeconds(1f);
 
+            //Si il est encore en vie
             if (enVie && mort == false)
             {
                 //Le rediriger vers une tente aléatoire
@@ -180,37 +189,39 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         frappeEpee = false;
     }
 
+    //Fonction qui redirige l'ennemi vers le totem
+    void directionTotem()
+    {
+        //S'il est en vie et que la partie est pas finie
+        if (mort == false && enVie && TotemVie.defaite == false)
+        {
+            //Rediriger l'ennemi vers le totem
+            navAgent.SetDestination(totem.transform.position);
+        }
+    }
+
     //Fonction qui détruit l'ennemi
     [PunRPC]
     IEnumerator MortEnnemi(int pvID, int delai)
     {
-        
-            //Apr�s un petit d�lai
-            yield return new WaitForSeconds(delai);
+        //Apr�s un petit d�lai
+        yield return new WaitForSeconds(delai);
 
-            //D�truire l'ennemi sur r�seau
-            PhotonNetwork.Destroy(PhotonView.Find(pvID));         
-        
+        //D�truire l'ennemi sur r�seau
+        PhotonNetwork.Destroy(PhotonView.Find(pvID));          
     }
 
+    //Jouer le son de l'épée
     [PunRPC]
     void JoueSonEpee()
     {
         GetComponent<AudioSource>().PlayOneShot(sonEpee);
     }
 
+    //Jouer le son de la balle (même que le feu)
     [PunRPC]
     void JoueSonBalle()
     {
         GetComponent<AudioSource>().PlayOneShot(sonBalle);
-    }
-
-    void directionTotem()
-    {
-        if (enVie && TotemVie.defaite == false)
-        {
-            //Rediriger l'ennemi vers le totem
-            navAgent.SetDestination(totem.transform.position);
-        }
     }
 }

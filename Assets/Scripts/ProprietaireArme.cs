@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-
+/*
+ * Gestion du propriétaire (Ownership) de l'arme.
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 24 novembre 2021
+ * 
+*/
 public class ProprietaireArme : MonoBehaviourPunCallbacks
 {
-    public GameObject socket; //R�f�rence au socket
-
-    public void Start()
-    {
-        socket = GameObject.Find("Socket");
-    }
     public void OnTriggerEnter(Collider collision)
     {
         //Si l'arme touche un joueur

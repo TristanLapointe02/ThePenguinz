@@ -11,15 +11,12 @@ using UnityEngine;
 
 public class ControleAvatar : MonoBehaviour
 {
-
     //Transforms de l'avatar
     public Transform AvatarTransformPrincipal;
     public Transform AvatarTete;
     public Transform AvatarCorps;
     public Transform AvatarMainGauche;
     public Transform AvatarMainDroite;
-    
-
 
     //Transforms du XR Rig qui est la tête (normalement, c'est la caméra)
     public Transform XRTete;
@@ -28,9 +25,7 @@ public class ControleAvatar : MonoBehaviour
 
     //Distance entre la position du coprs et la tête (environ -0.9 dans l'exemple du cours)
     public Vector3 tetePositionOffset;
- 
-
-    
+  
     void Update()
     {
         //Synchronisation de la position de l'avatar. On se sert de la position de la tête qu'on abaisse avec le Offset.

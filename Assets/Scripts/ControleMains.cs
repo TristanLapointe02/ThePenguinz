@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+/*
+ * Script associé aux mains permettant des les animer
+ * 
+ * Par : Mathieu Dionne
+ * 
+ * Dernière modification : ??
+ * 
+*/
 
 public class ControleMains : MonoBehaviour
 {
@@ -16,19 +24,11 @@ public class ControleMains : MonoBehaviour
         handAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnEnable()
     {
         gripInputAction.action.performed += GripPressed;
         triggerInputAction.action.performed += TriggerPressed;
     }
-
-
 
     private void TriggerPressed(InputAction.CallbackContext obj)
     {

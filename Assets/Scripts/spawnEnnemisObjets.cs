@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-
+/*
+ * Gestion de la génération des ennemis et des objets sur réseau
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 17 novembre 2021
+ * 
+*/
 public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
 {
     public GameObject[] ennemisFaibles; //Tableau des ennemis
@@ -43,6 +50,7 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
     //Fonction qui crée un ennemi
     public void CreationEnnemi()
     {
+        //Si l'ennemi peut spawn et que c'est pas la fin du jeu
         if (ennemiPeutSpawn && TotemVie.defaite == false)
         {
             //Définir une position aléatoire
@@ -58,6 +66,7 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
     //Fonction qui crée un boss
     public void CreationBoss()
     {
+        //Si ce n'est pas la fin
         if (TotemVie.defaite == false)
         {
             //Définir une position aléatoire
