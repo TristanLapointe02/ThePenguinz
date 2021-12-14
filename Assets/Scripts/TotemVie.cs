@@ -20,6 +20,7 @@ public class TotemVie : MonoBehaviour
     public bool delai; //Petit délai pour régler le bug de la caméra
     public bool peutJouerSon; //Condition pour pas que le son se joue en boucle
     public static bool defaite; //Détermine quand le jeu est terminé
+    public GameObject[] positionsBoite; //Positions de téléportation de la boîte noir de fin
 
     //Petit délai pour gérer le bug de l'orientation de la barre de vie du totem avec la main caméra
     void Start()
@@ -45,10 +46,13 @@ public class TotemVie : MonoBehaviour
             peutJouerSon = true;
 
             //Détruire le totem
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 9f);
 
             //Indiquer que c'est la défaite
             defaite = true;
+
+            //Téléporter les joueurs après un certain délai
+            Invoke("teleportationJoueur", 7f);
         }
     }
     
@@ -87,5 +91,18 @@ public class TotemVie : MonoBehaviour
     public void delaiFonction()
     {
         delai = true;
+    }
+
+    //Fonction qui téléporte les joueur lors de la défaite
+    public void teleportationJoueur()
+    {
+        //Tableau des joueurs
+        GameObject[] joueurs = GameObject.FindGameObjectsWithTag("joueur");
+
+        //Téléporter les joueurs à une position
+        for (int i = 0; i < positionsBoite.Length; i++)
+        {
+            joueurs[i].transform.position = positionsBoite[i].transform.position;
+        }
     }
 }
