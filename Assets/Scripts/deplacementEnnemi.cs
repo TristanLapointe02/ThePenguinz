@@ -101,6 +101,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         {
             //Activer l'animation de victoire
             GetComponent<Animator>().SetBool("Victoire", true);
+
+            //Désactiver navmesh
+            navAgent.isStopped = true;
         }
     }
 

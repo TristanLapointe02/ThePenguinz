@@ -46,7 +46,7 @@ public class TotemVie : MonoBehaviour
             peutJouerSon = true;
 
             //Détruire le totem
-            Destroy(gameObject, 9f);
+            gameObject.SetActive(false);
 
             //Indiquer que c'est la défaite
             defaite = true;

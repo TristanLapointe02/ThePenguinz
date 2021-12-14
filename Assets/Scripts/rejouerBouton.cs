@@ -18,9 +18,12 @@ public class rejouerBouton : MonoBehaviourPunCallbacks
         }
     }
 
-    public void reloadScene()
+    private void OnTriggerEnter(Collider infoCollision)
     {
-        //Recharger la scène
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (infoCollision.gameObject.tag == "Player")
+        {    
+            //Recharger la scène
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
