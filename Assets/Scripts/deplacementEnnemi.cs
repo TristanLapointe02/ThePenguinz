@@ -42,7 +42,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
 
         else if (gameObject.name == "Boss(Clone)")
         {
-            vieEnnemi = 350f;
+            vieEnnemi = 450f;
         }
 
         //Aller chercher le raccourci pour navmesh agent
@@ -143,14 +143,14 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         if (collision.gameObject.name == "collisionGrenade")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 175f; 
+            vieEnnemi -= 200f; 
         }
 
         //Si l'ennemi se fait toucher par le feu de la baguette magique
         if (collision.gameObject.name == "ColliderFeu")
         {
             //Diminuer la vie de l'ennemi
-            vieEnnemi -= 25f;
+            vieEnnemi -= 35f;
 
             //Appeler la fonction pour le son du feu qui touche l'ennemi
             photonView.RPC("JoueSonBalle", RpcTarget.All);

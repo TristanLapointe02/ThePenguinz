@@ -4,6 +4,14 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+/*
+ * Gestion de la scène de défaite et du faux bouton permettant de recommencer le jeu
+ * 
+ * Par : Tristan Lapointe
+ * 
+ * Dernière modification : 14 décembre 2021
+ * 
+*/
 
 public class rejouerBouton : MonoBehaviourPunCallbacks
 {
@@ -21,9 +29,9 @@ public class rejouerBouton : MonoBehaviourPunCallbacks
     private void OnTriggerEnter(Collider infoCollision)
     {
         if (infoCollision.gameObject.tag == "Player")
-        {    
+        {
             //Recharger la scène
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

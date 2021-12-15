@@ -14,6 +14,7 @@ public class TotemVie : MonoBehaviour
 {
     public float vieTotem = 1f; //Vie du totem
     public Slider sliderTotem; //Barre de vie du totem
+    public GameObject TexteScore; //Référence au score des monstres tués
     public float degatEnnemi; //Dégât qu'un ennemi normal va faire
     public float degatBoss; //Dégât qu'un boss va faire
     public AudioClip sonDefaite; //Son de défaite
@@ -30,10 +31,26 @@ public class TotemVie : MonoBehaviour
 
     void Update()
     {
+        //Afficher le score d'ennemis tués
+        if (deplacementEnnemi.compteurMort < 1)
+        {
+            TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Humains éléminés: " + deplacementEnnemi.compteurMort + " / 10";
+        }
+        else if (deplacementEnnemi.compteurMort >= 1)
+        {
+            TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "TUEZ LE BOSS !";
+
+            if (victoireJeu.victoireActive)
+            {
+                TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Allez porter les boules à neige dans l'igloo";
+            }
+        }
+
         if (delai == true)
         {
-            //Ajuster la rotation de la barre de vie avec la rotation de la caméra du joueur
+            //Ajuster la rotation de la barre de vie et du score avec la rotation de la caméra du joueur
             sliderTotem.gameObject.transform.rotation = Camera.main.transform.rotation;
+            TexteScore.transform.rotation = Camera.main.transform.rotation;
         }      
 
         //Si le totem n'a plus de vie...

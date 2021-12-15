@@ -18,6 +18,9 @@ public class GestionConnexion : MonoBehaviourPunCallbacks
     private void Awake(){
         //On connecte le joueur
         PhotonNetwork.ConnectUsingSettings();
+
+        //Permettre au master de lancer les scène pour tous les joueurs
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     //Quand on se connecte sur le serveur!
