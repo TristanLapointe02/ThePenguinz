@@ -121,14 +121,6 @@ public class TotemVie : MonoBehaviourPunCallbacks
     //Fonction qui téléporte les joueur lors de la défaite
     public void teleportationJoueur()
     {
-        //Tableau des joueurs
-        //GameObject[] joueurs = GameObject.FindGameObjectsWithTag("joueur");
-
-        //Téléporter les joueurs à une position
-        //for (int i = 0; i < positionsBoite.Length; i++)
-        //{
-        //    joueurs[i].transform.position = positionsBoite[i].transform.position;
-        //}
         PhotonNetwork.LoadLevel("Penguinz_Fin");
     }
 }

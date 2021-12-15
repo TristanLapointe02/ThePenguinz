@@ -1,31 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 /*
  * Gestion de la victoire
  * 
  * Par : Tristan Lapointe
  * 
- * Dernière modification : 9 décembre 2021
+ * Derniï¿½re modification : 9 dï¿½cembre 2021
  * 
 */
-public class victoireJeu : MonoBehaviour
+public class victoireJeu : MonoBehaviourPunCallbacks
 {
-    public GameObject[] particulesDeVictoire; //Référence aux particules de feux d'artifice
-    public GameObject texteVictoire; //Référence au texte de victoire
-    public static bool victoireActive; //Condition pour pas que la fonction se réexécute
-    public static bool boule1Active; //Condition pour savoir si la boule 1 est déposée
-    public static bool boule2Active; //Condition pour savoir si la boule 2 est déposée
+    public GameObject[] particulesDeVictoire; //Rï¿½fï¿½rence aux particules de feux d'artifice
+    public GameObject texteVictoire; //Rï¿½fï¿½rence au texte de victoire
+    public static bool victoireActive; //Condition pour pas que la fonction se rï¿½exï¿½cute
+    public static bool boule1Active; //Condition pour savoir si la boule 1 est dï¿½posï¿½e
+    public static bool boule2Active; //Condition pour savoir si la boule 2 est dï¿½posï¿½e
       
-    //Appeler cette fonction de victoire lorsque les deux socket ont été select par leur boule respecter. Ensuite, le socket principal avctive la victoire
+    //Appeler cette fonction de victoire lorsque les deux socket ont ï¿½tï¿½ select par leur boule respecter. Ensuite, le socket principal avctive la victoire
     public void Victoire()
     {
-        //Indiquer que le premier socket a été activé
+        //Indiquer que le premier socket a ï¿½tï¿½ activï¿½
         if (gameObject.name == "Socket")
         {
             boule1Active = true;
         }
-        //Indiquer que le premier socket a été activé
+        //Indiquer que le premier socket a ï¿½tï¿½ activï¿½
         else if (gameObject.name == "Socket2")
         {
             boule2Active = true;
@@ -34,7 +37,7 @@ public class victoireJeu : MonoBehaviour
 
     public void Update()
     {
-        //Si le jeu n'a pas encore été gagné et que toutes les conditions sont rencontrées pour la victoire
+        //Si le jeu n'a pas encore ï¿½tï¿½ gagnï¿½ et que toutes les conditions sont rencontrï¿½es pour la victoire
         if (victoireActive == false && boule1Active && boule2Active && gameObject.name == "Socket")
         {
             //Activer les particules de victoire en boucle
@@ -45,21 +48,30 @@ public class victoireJeu : MonoBehaviour
 
             //Indiquer que la victoire est faite
             victoireActive = true;
+
+            //Appeler la fonction pour tÃ©lÃ©porter le joueur
+            Invoke("teleportationJoueur", 15f);
         }
     }
 
-    //Fonction qui gère l'apparition aléatoire des particules de victoire
+    //Fonction qui gï¿½re l'apparition alï¿½atoire des particules de victoire
     public void particulesVictoire()
     {
-        //Piger un nombre aléatoire, activer la particule
+        //Piger un nombre alï¿½atoire, activer la particule
         int randomEnfantActiver = Random.Range(0,particulesDeVictoire.Length);
 
-        //Activer une particule alétoire dans le tableau
+        //Activer une particule alï¿½toire dans le tableau
         particulesDeVictoire[randomEnfantActiver].gameObject.SetActive(true);
 
-        //Piger un nombre aléatoire, désactiver la particule
+        //Piger un nombre alï¿½atoire, dï¿½sactiver la particule
         int randomEnfantDesactiver = Random.Range(0, particulesDeVictoire.Length);
 
         particulesDeVictoire[randomEnfantDesactiver].gameObject.SetActive(false);
+    }
+
+    //Fonction qui tÃ©lÃ©porte les joueur lors de la dÃ©faite
+    public void teleportationJoueur()
+    {
+        PhotonNetwork.LoadLevel("Penguinz_Fin");
     }
 }

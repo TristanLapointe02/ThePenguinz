@@ -5,11 +5,11 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 /*
- * Gestion de la scène de défaite et du faux bouton permettant de recommencer le jeu
+ * Gestion de la scï¿½ne de dï¿½faite et du faux bouton permettant de recommencer le jeu
  * 
  * Par : Tristan Lapointe
  * 
- * Dernière modification : 14 décembre 2021
+ * Derniï¿½re modification : 14 dï¿½cembre 2021
  * 
 */
 
@@ -30,8 +30,9 @@ public class rejouerBouton : MonoBehaviourPunCallbacks
     {
         if (infoCollision.gameObject.tag == "Player")
         {
-            //Relancer la scène du début
-            PhotonNetwork.LoadLevel("Penguinz_Ingame");
+            //Relancer la scï¿½ne du dï¿½but
+            Application.Quit();
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }
