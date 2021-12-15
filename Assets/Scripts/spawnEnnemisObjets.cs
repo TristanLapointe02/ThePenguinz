@@ -26,7 +26,7 @@ public class spawnEnnemisObjets : MonoBehaviourPunCallbacks
     void Start()
     {
         //Appel des ennemis faibles
-        InvokeRepeating("CreationEnnemi", 8f, tempsSpawnEnnemis);
+        InvokeRepeating("CreationEnnemi", 5f, tempsSpawnEnnemis);
 
         //Appel des armes
         Invoke("CreationArmes", 2f);

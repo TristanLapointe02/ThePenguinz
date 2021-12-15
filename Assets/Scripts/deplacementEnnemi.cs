@@ -25,6 +25,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public AudioClip sonBalle; //Son de la balle qui touche l'ennemi
     public GameObject[] tentes; //Tentes dans le jeu
     public AudioClip sonHit; //Son lorsqu'un ennemi touche le totem
+    public static bool bossTue; //Variable qui détecte si le boss a été tué
 
     void Start()
     {
@@ -84,6 +85,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //..Si l'ennemi tué était le boss
             if (gameObject.name == "Boss(Clone)")
             {
+                //Indiquer en RPC que le boss a été tué
+                photonView.RPC("BossMort", RpcTarget.All, true);
+
                 //Faire spawn les boules a neige sur réseau
                 if (PhotonNetwork.IsMasterClient == true)
                 {
@@ -232,5 +236,11 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     public void AugmenterScore(int score)
     {
         compteurMort += score;
+    }
+
+    [PunRPC]
+    public void BossMort(bool mort)
+    {
+        bossTue = mort;
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 /*
  * Gestion de la vie du totem
  * 
@@ -10,7 +12,7 @@ using UnityEngine.UI;
  * Dernière modification : 08 décembre 2021
  * 
 */
-public class TotemVie : MonoBehaviour
+public class TotemVie : MonoBehaviourPunCallbacks
 {
     public float vieTotem = 1f; //Vie du totem
     public Slider sliderTotem; //Barre de vie du totem
@@ -40,11 +42,17 @@ public class TotemVie : MonoBehaviour
         {
             TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "TUEZ LE BOSS !";
 
-            if (victoireJeu.victoireActive)
+            if (deplacementEnnemi.bossTue)
             {
                 TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Allez porter les boules à neige dans l'igloo";
+
+                if (victoireJeu.victoireActive)
+                {
+                    TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                }
             }
-        }
+            
+        }       
 
         if (delai == true)
         {
@@ -114,12 +122,13 @@ public class TotemVie : MonoBehaviour
     public void teleportationJoueur()
     {
         //Tableau des joueurs
-        GameObject[] joueurs = GameObject.FindGameObjectsWithTag("joueur");
+        //GameObject[] joueurs = GameObject.FindGameObjectsWithTag("joueur");
 
         //Téléporter les joueurs à une position
-        for (int i = 0; i < positionsBoite.Length; i++)
-        {
-            joueurs[i].transform.position = positionsBoite[i].transform.position;
-        }
+        //for (int i = 0; i < positionsBoite.Length; i++)
+        //{
+        //    joueurs[i].transform.position = positionsBoite[i].transform.position;
+        //}
+        PhotonNetwork.LoadLevel("Penguinz_Fin");
     }
 }

@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/CocoIce.unity
+    path: 
     guid: 4e7919ca6905f5c41aabcdae689e1316
   - enabled: 0
-    path: Assets/Scenes/Test.unity
+    path: 
     guid: a336d1f0a690eed4a91e86823425557e
   - enabled: 1
     path: Assets/Scenes/Penguinz_Ingame.unity
     guid: 8a7e67f3cc34a184d8f90e4f4907d8ca
+  - enabled: 1
+    path: Assets/Scenes/Penguinz_Fin.unity
+    guid: 1b2ee021be1a4eb4f9595ae96669c673
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: dfa3be96e3b040b469fd060f08a369de, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2ebc29ec099c6dc44993f64b4f952f59, type: 2}

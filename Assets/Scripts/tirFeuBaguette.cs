@@ -81,26 +81,6 @@ public class tirFeuBaguette : MonoBehaviourPunCallbacks
                 photonView.RPC("StopSonFeu", RpcTarget.All);
             }
         }
-
-        //!!!!!!!!!!!!!!! À TESTER
-        //Si il est null, tout désactiver
-        else if (boutBaguette == null)
-        {
-            if (photonView.IsMine)
-            {
-                //Désactiver la particule de feu dans la direction du joueur
-                particuleFeu.gameObject.SetActive(false);
-
-                //Désactiver le collider du feu
-                colliderFeu.gameObject.SetActive(false);
-
-                //Indiquer que le joueur a désactivé le feu
-                feuActif = false;
-
-                //Arrêter le son su réseau
-                photonView.RPC("StopSonFeu", RpcTarget.All);
-            }
-        }
     }
 
     //Fonction qui permet de jouer le son de feu

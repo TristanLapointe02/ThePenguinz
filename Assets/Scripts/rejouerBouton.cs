@@ -30,8 +30,8 @@ public class rejouerBouton : MonoBehaviourPunCallbacks
     {
         if (infoCollision.gameObject.tag == "Player")
         {
-            //Recharger la scène
-            //PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex);
+            //Relancer la scène du début
+            PhotonNetwork.LoadLevel("Penguinz_Ingame");
         }
     }
 }
