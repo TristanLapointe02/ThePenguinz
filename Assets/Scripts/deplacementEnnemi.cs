@@ -67,8 +67,8 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Activer l'animation de mort
             GetComponent<Animator>().SetBool("Mort", true);
 
-            //Augmenter le compteur de mort
-            compteurMort += 1;
+            //Augmenter le compteur de mort par RPC
+            photonView.RPC("AugmenterScore", RpcTarget.All, 1);
 
             //D�truire l'ennemi sur r�seau
             if (PhotonNetwork.IsMasterClient)
@@ -226,5 +226,11 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
     void JoueSonBalle()
     {
         GetComponent<AudioSource>().PlayOneShot(sonBalle);
+    }
+
+    [PunRPC]
+    public void AugmenterScore(int score)
+    {
+        compteurMort += score;
     }
 }
