@@ -32,11 +32,11 @@ public class TotemVie : MonoBehaviour
     void Update()
     {
         //Afficher le score d'ennemis tués
-        if (deplacementEnnemi.compteurMort < 1)
+        if (deplacementEnnemi.compteurMort < 10)
         {
             TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Humains éléminés: " + deplacementEnnemi.compteurMort + " / 10";
         }
-        else if (deplacementEnnemi.compteurMort >= 1)
+        else if (deplacementEnnemi.compteurMort >= 10)
         {
             TexteScore.GetComponent<TMPro.TextMeshProUGUI>().text = "TUEZ LE BOSS !";
 
