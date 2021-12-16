@@ -113,6 +113,9 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         //DÉFAITE DE L'ENNEMI
         if (victoireJeu.victoireActive == true)
         {
+            //Activer l'animation de défaite
+            GetComponent<Animator>().SetBool("Defaite", true);
+
             //Désactiver navmesh
             navAgent.isStopped = true;
         }
