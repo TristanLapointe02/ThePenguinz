@@ -22,10 +22,4 @@ public class SceneFin : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Instantiate("AvatarReseau",new Vector3(Random.Range(-5f, 5f),3f,Random.Range(-5f, 5f)),Quaternion.identity, 0,null );
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
