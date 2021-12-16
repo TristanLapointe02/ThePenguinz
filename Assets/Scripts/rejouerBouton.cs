@@ -32,7 +32,6 @@ public class rejouerBouton : MonoBehaviourPunCallbacks
         {
             //Relancer la sc�ne du d�but
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }
