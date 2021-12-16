@@ -46,11 +46,11 @@ public class victoireJeu : MonoBehaviourPunCallbacks
             //Activer le texte de victoire
             texteVictoire.SetActive(true);
 
-            //Indiquer que la victoire est faite
-            victoireActive = true;
-
             //Appeler la fonction pour téléporter le joueur
             Invoke("teleportationJoueur", 15f);
+
+            //Indiquer que la victoire est faite
+            victoireActive = true; 
         }
     }
 

@@ -109,6 +109,13 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             //Désactiver navmesh
             navAgent.isStopped = true;
         }
+
+        //DÉFAITE DE L'ENNEMI
+        if (victoireJeu.victoireActive == true)
+        {
+            //Désactiver navmesh
+            navAgent.isStopped = true;
+        }
     }
 
     //Vérifier les collisions...
@@ -161,7 +168,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
 
         //Si l'ennemi touche un totem
-        if (collision.gameObject.name == "TotemCentre" && enVie && mort==false)
+        if (collision.gameObject.name == "TotemCentre" && enVie && mort == false && victoireJeu.victoireActive == false)
         {
             //Après 10 secondes, retourner vers le totem
             Invoke("directionTotem", 10f);
@@ -186,7 +193,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
             {
                 //Le rediriger vers une tente aléatoire
                 navAgent.SetDestination(tentes[Random.Range(0, tentes.Length)].transform.position);
-            } 
+            }
         }
     }
 
