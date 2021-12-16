@@ -111,7 +111,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
 
         //DÉFAITE DE L'ENNEMI
-        if (victoireJeu.victoireActive == true)
+        if (bossTue == true)
         {
             //Activer l'animation de défaite
             GetComponent<Animator>().SetBool("Defaite", true);
@@ -171,7 +171,7 @@ public class deplacementEnnemi : MonoBehaviourPunCallbacks
         }
 
         //Si l'ennemi touche un totem
-        if (collision.gameObject.name == "TotemCentre" && enVie && mort == false && victoireJeu.victoireActive == false)
+        if (collision.gameObject.name == "TotemCentre" && enVie && mort == false && bossTue == false)
         {
             //Après 10 secondes, retourner vers le totem
             Invoke("directionTotem", 10f);
